@@ -93,17 +93,41 @@ angular.module('services.music', [])
 
         var queue = [];
 
-        var generateQueue = function(songs){
+        var generateQueue = function(songs, image){
             for (var i = 0; i < songs.length; i++){
-                queue.push(songs[i]);
+                queue.push({ title: songs[i], img: image });
             }
         };
 
-        generateQueue(artists[0].albums[0].songs);
-        generateQueue(artists[0].albums[1].songs);
-        generateQueue(artists[0].albums[1].songs);
-        generateQueue(artists[0].albums[1].songs);
-        generateQueue(artists[0].albums[1].songs);
+        var playlists = [];
+
+        var createPlaylist = function(playlistName, albums){
+            var newPlaylist = {
+                songs: [],
+                coverArt: [],
+                name: playlistName
+            };
+            for (var i = 0; i < albums.length; i++){
+                if (i < 4){
+                    newPlaylist.coverArt.push(albums[i].img);
+                }
+                for (var j = 0;j < albums[i].songs.length; j++){
+                    newPlaylist.songs.push(albums[i].songs[j]);
+                }
+            }
+            playlists.push(newPlaylist);
+        }
+
+        generateQueue(artists[0].albums[0].songs, artists[0].albums[0].img);
+        generateQueue(artists[3].albums[1].songs, artists[3].albums[1].img);
+        generateQueue(artists[2].albums[1].songs, artists[2].albums[1].img);
+
+        createPlaylist("My Favourites", [
+            artists[0].albums[0], artists[0].albums[1], artists[6].albums[0], artists[4].albums[1]
+        ]);
+        createPlaylist("Metal Tracks", [
+            artists[7].albums[0], artists[7].albums[1], artists[5].albums[0], artists[5].albums[1]
+        ]);
 
         var serviceFunctions = {
 
@@ -127,6 +151,10 @@ angular.module('services.music', [])
                     }
                 }
                 return albums;
+            },
+
+            getPlaylists: function(){
+                return playlists
             }
 
 

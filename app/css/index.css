@@ -128,11 +128,6 @@
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
     border-radius: 15px;
-    background-color: #5C6BC0;
-}
-
-.musicQueueItemIcon:hover {
-    background-color: #3F51B5;
 }
 
 .musicQueueTextContainer {

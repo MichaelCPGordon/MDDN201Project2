@@ -97,6 +97,7 @@ angular.module('controllers.music', [])
         $scope.music = {
             genres: MusicService.getGenres(),
             artists: MusicService.getArtists(),
+            playlists: MusicService.getPlaylists(),
             allAlbums: MusicService.getAllAlbums(),
             allSongs: $scope.setupAllSongs(),
             allSongsOrderedBy: "title",

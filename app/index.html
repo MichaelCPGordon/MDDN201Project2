@@ -39,12 +39,12 @@
                       <ul style="padding:0; margin: 0; height: 100%;">
                           <li ng-repeat="song in music.queue track by $index" class="musicQueueListItem">
                               <div class="musicQueueIconContainer">
-                                  <div class="musicQueueItemIcon">
-
-                                  </div>
+                                  <!--<div class="musicQueueItemIcon">-->
+                                      <img ng-src="assets/albums/{{song.img}}.jpg" class="musicQueueItemIcon">
+                                  <!--</div>-->
                               </div>
                               <div class="musicQueueTextContainer">
-                                  <p style="line-height: 45px; margin: 0;">{{song}}</p>
+                                  <p style="line-height: 45px; margin: 0;">{{song.title}}</p>
                               </div>
                           </li>
                       </ul>

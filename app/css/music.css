@@ -219,3 +219,19 @@
     color: #000000;
 }
 
+.playlistBox {
+    height: 255px;
+}
+
+.playlistImageContainer {
+    display: inline-block;
+    position:relative;
+}
+
+.playlistImageContainer img {
+    position: relative;
+    height: 50%;
+    width: 50%;
+    float: left;
+}
+
