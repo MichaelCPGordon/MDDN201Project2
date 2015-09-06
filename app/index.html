@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Angular Material - Starter App</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
+    <link rel="stylesheet" href="./bower_components/angular-material/angular-material.css"/>
+
+    <link href="css/index.css" rel="stylesheet">
+    <link href="css/music.css" rel="stylesheet">
+  </head>
+
+  <body ng-app="app" layout="row">
+      <div ng-controller="SideMenuCtrl" id="sideMenuContainer">
+          <div class="sideMenuItemContainer" style="height: 140px;">
+              <img src="assets/gigaStormLogo.png" style="margin-left: 20px; margin-top: 29.5px;">
+          </div>
+          <div class="sideMenuItemContainer" style="height: 180px;">
+              <div id="userImageContainer">
+
+              </div>
+              <div id="userNameContainer">
+                  <md-button ng-click="showSettings($event)" style="margin-top: 20px;">{{account.firstName}}</md-button>
+              </div>
+          </div>
+
+          <div class="sideMenuItemContainer" style="position: fixed; width: 280px; top: 340px; bottom: 0px; ">
+
+              <div style="height: 100%; position: relative;" ng-show="selectedMediaType === 'music'">
+                  <div style="height: 60px; position: relative;">
+                      <h2 class="md-headline musicQueueHeading">Queue</h2>
+                  </div>
+                  <md-content class="musicQueueContent">
+                      <ul style="padding:0; margin: 0; height: 100%;">
+                          <li ng-repeat="song in music.queue track by $index" class="musicQueueListItem">
+                              <div class="musicQueueIconContainer">
+                                  <div class="musicQueueItemIcon">
+
+                                  </div>
+                              </div>
+                              <div class="musicQueueTextContainer">
+                                  <p style="line-height: 45px; margin: 0;">{{song}}</p>
+                              </div>
+                          </li>
+                      </ul>
+                  </md-content>
+              </div>
+
+              <div>
+
+              </div>
+
+              <div>
+
+              </div>
+
+          </div>
+          <!--<div class="sideMenuItemContainer" style="position: fixed; width: 280px; bottom: 0; height: 80px;">-->
+              <!--<div id="accountSettingsIcon"></div>-->
+              <!--<md-button id="accountSettings">Account Settings</md-button>-->
+          <!--</div>-->
+      </div>
+
+      <div id="rightSideContainer">
+
+          <div id="headerBarContainer">
+              <div class="headerBarTitleContainer" style="margin-left: 20%;">
+                  <md-button ui-sref="music" class="headerBarTitle">Music</md-button>
+              </div>
+              <div class="headerBarTitleContainer">
+                  <md-button ui-sref="movies" class="headerBarTitle">Movies</md-button>
+              </div>
+              <div class="headerBarTitleContainer">
+                  <md-button ui-sref="tv" class="headerBarTitle">TV</md-button>
+              </div>
+          </div>
+
+          <div ui-view id="appContentContainer"></div>
+      </div>
+
+    <script src="./bower_components/angular/angular.js"></script>
+    <script src="./bower_components/angular-animate/angular-animate.js"></script>
+    <script src="./bower_components/angular-aria/angular-aria.js"></script>
+    <script src="./bower_components/angular-material/angular-material.js"></script>
+    <script src="bower_components/angular-ui-router.js"></script>
+
+    <script src="js/app.js"></script>
+
+    <script src="js/controllers/sideMenuCtrl.js"></script>
+    <script src="js/controllers/moviesCtrl.js"></script>
+    <script src="js/controllers/musicCtrl.js"></script>
+    <script src="js/controllers/tvCtrl.js"></script>
+
+    <script src="js/services/moviesService.js"></script>
+    <script src="js/services/tvService.js"></script>
+    <script src="js/services/musicService.js"></script>
+    <script src="js/services/accountService.js"></script>
+
+  </body>
+</html>

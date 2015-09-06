@@ -1,0 +1,182 @@
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #fafafa;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: #BBBBBB;
+}
+
+
+#appContainer {
+    margin: 0;
+    height: 100vh;
+    max-width: 98vw;
+    overflow-x: hidden
+}
+
+#sideMenuContainer {
+    float: left;
+    height: 100%;
+    width: 300px;
+    position: fixed;
+    z-index: 1;
+    box-shadow: 2px 0px 5px 0px rgba(0,0,0,0.25);
+    background-color: #FCFCFC;
+}
+
+.sideMenuItemContainer {
+    width: calc(100% - 20px);
+    margin: 10px;
+    background-color: #3F51B5;
+    position: relative;
+    border-radius: 2px;
+}
+
+#userImageContainer {
+    background-color: #5C6BC0;
+    position: absolute;
+    height: 80px;
+    width: 80px;
+    -webkit-border-radius: 40px;
+    -moz-border-radius: 40px;
+    border-radius: 40px;
+    left: 100px;
+    top: 25px;
+}
+
+#userNameContainer {
+    width: 100%;
+    position: absolute;
+    top: 100px;
+    text-align: center;
+    color: #fafafa;
+}
+
+
+
+#rightSideContainer {
+    float: left;
+    width: calc(100vw - 300px);
+    margin-left: 300px;
+}
+
+#headerBarContainer {
+    z-index: 100;
+    height: 70px;
+    width: calc(100vw - 300px);
+    position: fixed;
+    box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.25);
+    background-color: #3F51B5;
+}
+
+.headerBarTitleContainer {
+    width: 20%;
+    height: 100%;
+    float: left;
+}
+
+.headerBarTitle {
+    line-height: 35px;
+    width: 40%;
+    display: block;
+    margin: 17.5px auto 17.5px auto;
+    color: #fafafa;
+}
+
+.musicQueueHeading {
+    color: #fafafa;
+    position: absolute;
+    margin: 15.5px 0 0 20px;
+}
+
+.musicQueueContent {
+    height: calc(100% - 60px);
+    padding-top: 5px;
+    background-color: #FCFCFC;
+}
+
+.musicQueueListItem {
+    list-style: none;
+    height: 45px;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.musicQueueListItem:hover {
+    background-color: #E9E9E9;
+}
+
+.musicQueueIconContainer {
+    width: 45px;
+    height: 45px;
+    float: left;
+}
+
+.musicQueueItemIcon {
+    height: 30px;
+    width: 30px;
+    margin: 7.5px 0 0 7.5px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    background-color: #5C6BC0;
+}
+
+.musicQueueItemIcon:hover {
+    background-color: #3F51B5;
+}
+
+.musicQueueTextContainer {
+    width: 223px;
+    height: 45px;
+    float: left;
+}
+
+
+
+
+
+
+#appContentContainer {
+    margin-top: 70px;
+    height: calc(100vh - 70px);
+    /*height: 1200px;*/
+    background-color: #BBBBBB;
+    position: relative;
+}
+
+
+#accountSettingsIcon {
+    height: 30px;
+    width: 30px;
+    background-image: url("../assets/settings.png");
+    margin: 25px 0 25px 20px;
+    float: left;
+    cursor: pointer;
+}
+
+#accountSettingsIcon:hover {
+    background-image: url("../assets/settingsHover.png");
+}
+
+#accountSettings {
+    margin: 22px 0 22px 20px;
+    float: left;
+    cursor: pointer;
+    color: #fafafa;
+}
+
+
+
+
+
+

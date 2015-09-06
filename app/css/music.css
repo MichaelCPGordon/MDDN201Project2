@@ -1,0 +1,221 @@
+/*::-webkit-input-placeholder {*/
+    /*color: rgba(225, 225, 225, 0.6);*/
+/*}*/
+
+/*:-moz-placeholder { /!* Firefox 18- *!/*/
+    /*color: rgba(225, 225, 225, 0.6);*/
+/*}*/
+
+/*::-moz-placeholder {  /!* Firefox 19+ *!/*/
+    /*color: rgba(225, 225, 225, 0.6);*/
+/*}*/
+
+/*:-ms-input-placeholder {*/
+    /*color: rgba(225, 225, 225, 0.6);*/
+/*}*/
+
+
+
+#musicHeaderContainer {
+    width: calc(100% - 250px);
+    height: 70px;
+    box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.25);
+    background-color: #5C6BC0;
+    position: fixed;
+    z-index: 50;
+}
+
+#musicHeaderButtonContainer {
+    height: 100%;
+    width: 70%;
+    float: left;
+}
+
+.musicHeaderButton {
+    width: 20%;
+    height: 100%;
+    float: left;
+}
+
+.musicHeaderButtonText {
+    display: block;
+    margin: 17px auto 17px auto;
+    color: #fafafa;
+}
+
+#musicHeaderSearchContainer {
+    height: 100%;
+    width: 30%;
+    float: left;
+    position: relative;
+}
+
+#musicHeaderSearchBox {
+    position: absolute;
+    height: 40px;
+    width: calc(100% - 120px);
+    top: 15px;
+    left: 50px;
+    background-color: rgba(200,200,200,0.3);
+    border-radius: 4px;
+}
+
+#musicHeaderSearchInput {
+    padding: 0 0 0 10px;
+    border-radius: 4px;
+    height: 40px;
+    width: calc(100% - 10px);
+    border: 0;
+    color: #fafafa;
+}
+
+#musicHeaderSearchInput:focus {
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+}
+
+#musicItemsContainer {
+    background-color: #E0E0E0;
+    height: calc(100% - 140px);
+    width: calc(100% - 300px);
+    top: 140px;
+    position: fixed;
+    overflow-y: auto;
+}
+
+.musicItemBox {
+    width: 200px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    float: left;
+    margin: 10px 0 10px 20px;
+    background-color: #fafafa;
+    -webkit-box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.3);
+    box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.3);
+    cursor: pointer;
+}
+
+.musicItemBox:hover {
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+}
+
+.artistBox {
+    height: 220px;
+}
+
+.artistImageContainer {
+    display: inline-block;
+    position:relative;
+    right: -50%;
+}
+
+.artistImageContainer img {
+    position: relative;
+    left:-50%;
+}
+
+.albumBox {
+    height: 200px;
+    position: relative;
+}
+
+.albumImageContainer {
+    width: 100%;
+    height: 75%;
+    position: absolute;
+    overflow: hidden;
+    z-index: 1
+}
+
+.frostedAlbumImage {
+    width: 190px;
+    left: 5px;
+    bottom: 5px;
+    display: block;
+    margin: auto;
+    position: absolute;
+    -webkit-filter: blur(2px);
+    -moz-filter: blur(2px);
+    -o-filter: blur(2px);
+    -ms-filter: blur(2px);
+    filter: blur(2px);
+}
+
+.albumTextContainer {
+    width: 190px;
+    height: 45px;
+    position: absolute;
+    z-index: 10;
+    bottom: 5px;
+    left: 5px;
+    background-color: rgba(200, 200, 200, 0.2);
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.albumText {
+    margin: 5px 0 0 5px;
+    text-shadow: 1px 1px 2px rgba(30, 30, 30, 1);
+    color: #fafafa;
+}
+
+.genreBox {
+    height: 120px;
+    position: relative;
+}
+
+.genreText {
+    color: #fafafa;
+    text-align: center;
+    margin-top: 45.5px;
+}
+
+.songList {
+    width: 90%;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    background-color: #fafafa;
+    -webkit-box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.3);
+    box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.3);
+    cursor: pointer;
+    margin: 10px 0 10px 5%;
+}
+
+.songListItem {
+    width: 100%;
+    height: 50px;
+}
+
+.songListItemHeading {
+    width: 100%;
+    height: 50px;
+}
+
+.songListItem:hover {
+    background-color: #BBBBBB;
+}
+
+.songListItemFieldContainer {
+    height: 50px;
+    float: left;
+}
+
+.songListItemImg {
+    width: 40px;
+    height: 40px;
+    margin-left: 5px;
+    margin-top: 5px;
+}
+
+.usedToOrderAllSongs p {
+    color: #000000;
+}
+
