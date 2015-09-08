@@ -213,8 +213,7 @@ angular.module('controllers.music', [])
             allSongs: $scope.setupAllSongs(),
             allSongsOrderedBy: "artist",
             queue: MusicService.getQueue(),
-            search: "",
-            organisedBy: "albums",
+            organisedBy: "artists",
             currentTrack: {
                 perc: 70,
                 val: "0:00",

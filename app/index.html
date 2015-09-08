@@ -176,11 +176,11 @@
                   </div>
 
                   <!--Single Genre Page-->
-                  <h3 style="width: 100%; text-align: center; margin-top: 50px;"
-                      ng-show="albumsFromGenre.length === 0 && genreToDisplay">You have no music from this genre</h3>
                   <div ng-show="genreToDisplay" class="artistPageTitleContainer">
                       <h2 style="text-align: center; line-height: 60px; margin: 0;">{{genreToDisplay.name}}</h2>
                   </div>
+                  <h3 style="width: 100%; text-align: center; margin-top: 50px;"
+                      ng-show="albumsFromGenre.length === 0 && genreToDisplay">You have no music from this genre</h3>
                   <div ng-show="genreToDisplay" ng-repeat="album in albumsFromGenre">
 
                       <div class="artistPageAlbumContainer" style="min-height: 340px;">
