@@ -12,7 +12,6 @@ angular.module('controllers.music', [])
             $mdDialog.show({
                 controller: DialogController,
                 templateUrl: 'templates/settingsDialog.html',
-                parent: angular.element(document.body),
                 focusOnOpen: true,
                 targetEvent: ev,
                 clickOutsideToClose:true
@@ -37,8 +36,6 @@ angular.module('controllers.music', [])
         var genreBoxColors = [
             "#EF5350", "#5C6BC0", "#26A69A", "#9CCC65", "#FFA726", "#66BB6A", "#7E57C2"
         ];
-
-
 
         $scope.generateRandomGenreBoxColor = function(){
             var randCol = "";
@@ -125,59 +122,12 @@ angular.module('controllers.music', [])
             var secTotal = parseInt($scope.music.currentTrack.seconds * ($scope.music.currentTrack.perc / 100));
             var sec = secTotal % 60;
             var mins = (secTotal - sec) / 60;
+            if (sec < 10){
+                sec = "0" + sec;
+            }
+
             $scope.music.currentTrack.val = mins + ":" + sec;
         };
-
-        $scope.music = {
-            genres: MusicService.getGenres(),
-            artists: MusicService.getArtists(),
-            playlists: MusicService.getPlaylists(),
-            allAlbums: MusicService.getAllAlbums(),
-            allSongs: $scope.setupAllSongs(),
-            allSongsOrderedBy: "artist",
-            queue: MusicService.getQueue(),
-            search: "",
-            organisedBy: "albums",
-            currentTrack: {
-                perc: 70,
-                val: "0:00",
-                seconds: 0
-            }
-        };
-
-        $scope.playPauseIcon = "play";
-        $scope.shuffleIcon = "assets/icons/shuffle.png";
-        $scope.repeatIcon = "assets/icons/repeat.png";
-        $scope.togglePlayPause = function(){
-            if ($scope.playPauseIcon === "play"){
-                $scope.playPauseIcon = "pause";
-            }
-            else {
-                $scope.playPauseIcon = "play";
-            }
-        }
-
-        $scope.generateRandomGenreBoxColor();
-        $scope.orderSongsBy("artist", $scope.music.allSongs);
-        $scope.getCurrentSongLengthSeconds();
-        $scope.calculateCurrentTrackVal();
-
-
-
-        $scope.organiseMusicBy = function(type){
-            $scope.music.organisedBy = type;
-            $scope.artistToDisplay = null;
-            $scope.albumToDisplay = null;
-            $scope.genreToDisplay = null;
-            $scope.albumsFromGenre = null;
-            $scope.playlistToDisplay = null;
-        };
-
-        $scope.artistToDisplay = null;
-        $scope.albumToDisplay = null;
-        $scope.genreToDisplay = null;
-        $scope.albumsFromGenre = null;
-        $scope.playlistToDisplay = null;
 
         $scope.displayArtist = function(artistName){
             for (var i = 0; i < $scope.music.artists.length; i++){
@@ -193,7 +143,7 @@ angular.module('controllers.music', [])
                     $scope.albumToDisplay = $scope.music.allAlbums[i];
                 }
             }
-            for (var i = 0; i < $scope.music.artists.length; i++){
+            for (i = 0; i < $scope.music.artists.length; i++){
                 for (var j = 0; j < $scope.music.artists[i].albums.length; j++){
                     if ($scope.music.artists[i].albums[j].name === albumName){
                         $scope.albumToDisplay.artistName = $scope.music.artists[i].name;
@@ -230,6 +180,58 @@ angular.module('controllers.music', [])
                 }
             }
         };
+
+        $scope.organiseMusicBy = function(type){
+            $scope.music.organisedBy = type;
+            $scope.artistToDisplay = null;
+            $scope.albumToDisplay = null;
+            $scope.genreToDisplay = null;
+            $scope.albumsFromGenre = null;
+            $scope.playlistToDisplay = null;
+        };
+
+        $scope.togglePlayPause = function(){
+            if ($scope.playPauseIcon === "play"){
+                $scope.playPauseIcon = "pause";
+            }
+            else {
+                $scope.playPauseIcon = "play";
+            }
+        };
+
+        $scope.artistToDisplay = null;
+        $scope.albumToDisplay = null;
+        $scope.genreToDisplay = null;
+        $scope.albumsFromGenre = null;
+        $scope.playlistToDisplay = null;
+
+        $scope.music = {
+            genres: MusicService.getGenres(),
+            artists: MusicService.getArtists(),
+            playlists: MusicService.getPlaylists(),
+            allAlbums: MusicService.getAllAlbums(),
+            allSongs: $scope.setupAllSongs(),
+            allSongsOrderedBy: "artist",
+            queue: MusicService.getQueue(),
+            search: "",
+            organisedBy: "albums",
+            currentTrack: {
+                perc: 70,
+                val: "0:00",
+                seconds: 0
+            }
+        };
+
+        $scope.playPauseIcon = "play";
+        $scope.shuffleIcon = "assets/icons/shuffle.png";
+        $scope.repeatIcon = "assets/icons/repeat.png";
+
+
+        $scope.generateRandomGenreBoxColor();
+        $scope.orderSongsBy("artist", $scope.music.allSongs);
+        $scope.getCurrentSongLengthSeconds();
+        $scope.calculateCurrentTrackVal();
+
 
 
     });
