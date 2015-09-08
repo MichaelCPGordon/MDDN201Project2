@@ -298,4 +298,8 @@
     background-image: url('../assets/icons/repeatHover.png');
 }
 
+#standardFabButton {
+    background-color: #3F51B5; position: fixed; bottom: 100px; right: 20px;
+}
+
 

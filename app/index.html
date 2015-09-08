@@ -105,6 +105,12 @@
 
               <div id="musicItemsContainer">
 
+                  <md-button class="md-fab" id="standardFabButton" ng-show="artistToDisplay || albumToDisplay ||
+                            genreToDisplay || music.organisedBy === 'songs' || playlistToDisplay">
+                      <md-tooltip md-direction="left">Add To Queue</md-tooltip>
+                      <md-icon md-svg-src="assets/icons/plus.svg"></md-icon>
+                  </md-button>
+
                   <!--Artist Main Page-->
                   <div ng-show="music.organisedBy === 'artists' && !artistToDisplay">
                       <div class="musicItemBox artistBox" ng-repeat="artist in music.artists track by $index" style="overflow: hidden">
@@ -119,9 +125,7 @@
 
                   <!--Single Artist Page-->
                   <div ng-show="artistToDisplay">
-                      <!--<div class="artistPageHeaderCard">-->
-                          <img ng-if="artistToDisplay.name !== ''" ng-src="assets/artists/{{artistToDisplay.img}}.jpg" class="artistPageMainImage">
-                      <!--</div>-->
+                      <img ng-if="artistToDisplay.name !== ''" ng-src="assets/artists/{{artistToDisplay.img}}.jpg" class="artistPageMainImage">
                       <div class="artistPageTitleContainer">
                           <h2 style="text-align: center; line-height: 60px; margin: 0;">{{artistToDisplay.name}}</h2>
                       </div>
@@ -240,6 +244,10 @@
 
                   <!--Playlists Main Page-->
                   <div ng-show="music.organisedBy === 'playlists' && !playlistToDisplay">
+                      <md-button class="md-fab" style="background-color: #5C6BC0; position: fixed; top: 160px; right: 10px;">
+                          <md-tooltip md-direction="left">Create New Playlist</md-tooltip>
+                          <md-icon md-svg-src="assets/icons/plus.svg"></md-icon>
+                      </md-button>
                       <div class="musicItemBox playlistBox" ng-repeat="playlist in music.playlists track by $index"
                            ng-click="setupPlaylistToDisplay(playlist)" style="overflow: hidden">
                           <div class="playlistImageContainer" style="height: 200px;">
