@@ -15,33 +15,32 @@
     <link href="css/music.css" rel="stylesheet">
   </head>
 
-  <body ng-app="app" layout="row">
-      <div ng-controller="SideMenuCtrl" id="sideMenuContainer">
+  <body ng-app="app" layout="row" ng-controller="MusicCtrl">
+      <div id="sideMenuContainer">
           <div class="sideMenuItemContainer" style="height: 140px;">
               <img src="assets/gigaStormLogo.png" style="margin-left: 20px; margin-top: 29.5px;">
           </div>
           <div class="sideMenuItemContainer" style="height: 180px;">
-              <div id="userImageContainer">
+              <img id="nowPlayingCirlce" ng-src="assets/albums/{{music.queue[0].img}}.jpg">
 
-              </div>
+              </img>
               <div id="userNameContainer">
-                  <md-button ng-click="showSettings($event)" style="margin-top: 20px;">{{account.firstName}}</md-button>
+                  <h4 style="margin-bottom: 5px">{{music.queue[0].title}}</h4>
+                  <h5 style="margin-top: 5px;">{{music.queue[0].artist.name}}</h5>
               </div>
           </div>
 
           <div class="sideMenuItemContainer" style="position: fixed; width: 280px; top: 340px; bottom: 0px; ">
 
-              <div style="height: 100%; position: relative;" ng-show="selectedMediaType === 'music'">
+              <div style="height: 100%; position: relative;">
                   <div style="height: 60px; position: relative;">
-                      <h2 class="md-headline musicQueueHeading">Queue</h2>
+                      <h5 class="md-headline musicQueueHeading">Queue</h5>
                   </div>
                   <md-content class="musicQueueContent">
                       <ul style="padding:0; margin: 0; height: 100%;">
                           <li ng-repeat="song in music.queue track by $index" class="musicQueueListItem">
                               <div class="musicQueueIconContainer">
-                                  <!--<div class="musicQueueItemIcon">-->
-                                      <img ng-src="assets/albums/{{song.img}}.jpg" class="musicQueueItemIcon">
-                                  <!--</div>-->
+                                  <img ng-src="assets/albums/{{song.img}}.jpg" class="musicQueueItemIcon">
                               </div>
                               <div class="musicQueueTextContainer">
                                   <p style="line-height: 45px; margin: 0;">{{song.title}}</p>
@@ -51,43 +50,294 @@
                   </md-content>
               </div>
 
-              <div>
-
-              </div>
-
-              <div>
-
-              </div>
-
           </div>
-          <!--<div class="sideMenuItemContainer" style="position: fixed; width: 280px; bottom: 0; height: 80px;">-->
-              <!--<div id="accountSettingsIcon"></div>-->
-              <!--<md-button id="accountSettings">Account Settings</md-button>-->
-          <!--</div>-->
       </div>
 
       <div id="rightSideContainer">
 
           <div id="headerBarContainer">
-              <div class="headerBarTitleContainer" style="margin-left: 20%;">
-                  <md-button ui-sref="music" class="headerBarTitle">Music</md-button>
+              <div style="height: 70px; width: 30%; float: left;">
+                  <div id="userImageContainer">
+                      <img ng-src="assets/jason.jpg" id="userImage" >
+                  </div>
+                  <md-button ng-click="showSettings($event)" style="margin-top: 17px; margin-left: 110px; color: #fafafa;">{{account.firstName}}</md-button>
               </div>
-              <div class="headerBarTitleContainer">
-                  <md-button ui-sref="movies" class="headerBarTitle">Movies</md-button>
+
+              <div style="height: 70px; width: 40%; float: left; text-align: center; color: #fafafa; line-height: 70px; ">
+                  <h3 style="margin: 0;">{{music.organisedBy.toUpperCase()}}</h3>
               </div>
-              <div class="headerBarTitleContainer">
-                  <md-button ui-sref="tv" class="headerBarTitle">TV</md-button>
+
+              <div style="height: 70px; width: 30%; float: right; position: relative;">
+                  <div id="musicHeaderSearchBox">
+                      <form ng-submit="search()">
+                          <md-input-container md-no-float style="padding: 0;">
+                              <input id="musicHeaderSearchInput" ng-model="music.search" type="text" aria-label="a" placeholder="Search">
+                          </md-input-container>
+                      </form>
+                  </div>
               </div>
           </div>
 
-          <div ui-view id="appContentContainer"></div>
+
+
+          <div id="appContentContainer">
+
+              <div id="musicHeaderContainer">
+                  <div id="musicHeaderButtonContainer">
+                      <div class="musicHeaderButton" style="margin-left: 12.5%;">
+                          <md-button ng-click="organiseMusicBy('artists')" class="musicHeaderButtonText">Artists</md-button>
+                      </div>
+                      <div class="musicHeaderButton">
+                          <md-button ng-click="organiseMusicBy('albums')" class="musicHeaderButtonText">Albums</md-button>
+                      </div>
+                      <div class="musicHeaderButton">
+                          <md-button ng-click="organiseMusicBy('genres')" class="musicHeaderButtonText">Genres</md-button>
+                      </div>
+                      <div class="musicHeaderButton">
+                          <md-button ng-click="organiseMusicBy('songs')" class="musicHeaderButtonText">Songs</md-button>
+                      </div>
+                      <div class="musicHeaderButton">
+                          <md-button ng-click="organiseMusicBy('playlists')" class="musicHeaderButtonText">Playlists</md-button>
+                      </div>
+                  </div>
+              </div>
+
+
+
+              <div id="musicItemsContainer">
+
+                  <!--Artist Main Page-->
+                  <div ng-show="music.organisedBy === 'artists' && !artistToDisplay">
+                      <div class="musicItemBox artistBox" ng-repeat="artist in music.artists track by $index" style="overflow: hidden">
+                          <div class="artistImageContainer" style="height: 75%;">
+                              <img ng-src="assets/artists/{{artist.img}}.jpg" ng-click="displayArtist(artist.name)" style="max-height: 100%; display: block; margin: auto">
+                          </div>
+                          <div style="width: 100%; height: 25%; padding-top: 13px;">
+                              <p style="margin: 0; text-align: center">{{artist.name}}</p>
+                          </div>
+                      </div>
+                  </div>
+
+                  <!--Single Artist Page-->
+                  <div ng-show="artistToDisplay">
+                      <!--<div class="artistPageHeaderCard">-->
+                          <img ng-if="artistToDisplay.name !== ''" ng-src="assets/artists/{{artistToDisplay.img}}.jpg" class="artistPageMainImage">
+                      <!--</div>-->
+                      <div class="artistPageTitleContainer">
+                          <h2 style="text-align: center; line-height: 60px; margin: 0;">{{artistToDisplay.name}}</h2>
+                      </div>
+                      <div class="artistPageAlbumContainer" ng-repeat="album in artistToDisplay.albums track by $index">
+                          <div style="width: 220px; height: 300px; float: left;">
+                              <img ng-src="assets/albums/{{album.img}}.jpg" class="artistPageAlbumImage">
+                              <h2 class="artistPageAlbumTitle">{{album.name}}</h2>
+                              <h4 class="artistPageAlbumText">{{album.songs.length}} songs</h4>
+                          </div>
+                          <div class="artistPageSongContainer" ng-repeat="song in album.songs">
+                              <p style="line-height: 50px; margin: 0 0 0 20px; float: left; width: 50%;">{{song.title}}</p>
+                              <p style="line-height: 50px; margin: 0; float: right; width: 20%;">{{song.length}}</p>
+                          </div>
+                      </div>
+                  </div>
+
+                  <!--Albums Main Page-->
+                  <div ng-show="music.organisedBy === 'albums' && !albumToDisplay">
+                      <div class="musicItemBox albumBox" ng-repeat="album in music.allAlbums track by $index" style="overflow: hidden">
+                          <img ng-src="assets/albums/{{album.img}}.jpg" style="height: 100%; width: 100%; position: absolute;">
+                          <div class="albumImageContainer">
+                              <img style="width: 100%; height: 200px;" ng-click="displayAlbum(album.name)" ng-src="assets/albums/{{album.img}}.jpg">
+                          </div>
+                          <img class="frostedAlbumImage" ng-src="assets/albums/{{album.img}}.jpg">
+                          <div class="albumTextContainer">
+                              <p class="albumText" style="font-size: 15px;">{{album.name}}</p>
+                              <p class="albumText" style="font-size: 13px;">{{album.artist}}</p>
+                          </div>
+                      </div>
+                  </div>
+
+                  <!--Single Album Page-->
+                  <div class="artistPageAlbumContainer" style="min-height: 340px;" ng-show="albumToDisplay">
+                      <div style="width: 220px; height: 300px; float: left;">
+                          <img ng-src="assets/albums/{{albumToDisplay.img}}.jpg" class="artistPageAlbumImage">
+                          <h2 class="artistPageAlbumTitle">{{albumToDisplay.name}}</h2>
+                          <h3 class="artistPageAlbumTitle">{{albumToDisplay.artistName}}</h3>
+                          <h4 class="artistPageAlbumText">{{albumToDisplay.songs.length}} songs</h4>
+                      </div>
+                      <div class="artistPageSongContainer" ng-repeat="song in albumToDisplay.songs">
+                          <p style="line-height: 50px; margin: 0 0 0 20px; float: left; width: 50%;">{{song.title}}</p>
+                          <p style="line-height: 50px; margin: 0; float: right; width: 20%;">{{song.length}}</p>
+                      </div>
+                  </div>
+
+                  <!--Genres Main Page-->
+                  <div ng-show="music.organisedBy === 'genres' && !genreToDisplay">
+                      <div class="musicItemBox genreBox" ng-repeat="genre in music.genres track by $index"
+                                ng-style="genre.color" ng-click="displayGenre(genre.name)">
+                          <h2 class="genreText">{{genre.name}}</h2>
+                      </div>
+                  </div>
+
+                  <!--Single Genre Page-->
+                  <h3 style="width: 100%; text-align: center; margin-top: 50px;"
+                      ng-show="albumsFromGenre.length === 0 && genreToDisplay">You have no music from this genre</h3>
+                  <div ng-show="genreToDisplay" class="artistPageTitleContainer">
+                      <h2 style="text-align: center; line-height: 60px; margin: 0;">{{genreToDisplay.name}}</h2>
+                  </div>
+                  <div ng-show="genreToDisplay" ng-repeat="album in albumsFromGenre">
+
+                      <div class="artistPageAlbumContainer" style="min-height: 340px;">
+                          <div style="width: 220px; height: 300px; float: left;">
+                              <img ng-src="assets/albums/{{album.img}}.jpg" class="artistPageAlbumImage">
+                              <h2 class="artistPageAlbumTitle">{{album.name}}</h2>
+                              <h3 class="artistPageAlbumTitle">{{album.artistName}}</h3>
+                              <h4 class="artistPageAlbumText">{{album.songs.length}} songs</h4>
+                          </div>
+                          <div class="artistPageSongContainer" ng-repeat="song in album.songs">
+                              <p style="line-height: 50px; margin: 0 0 0 20px; float: left; width: 50%;">{{song.title}}</p>
+                              <p style="line-height: 50px; margin: 0; float: right; width: 20%;">{{song.length}}</p>
+                          </div>
+                      </div>
+                  </div>
+
+                  <!--Songs MainPage-->
+                  <div ng-show="music.organisedBy === 'songs'">
+                      <div class="songList">
+                          <div class="songListItemHeading">
+                              <div class="songListItemFieldContainer" style="width: 70px;"></div>
+                              <div class="songListItemFieldContainer" ng-click="orderSongsBy('title', music.allSongs);"
+                                   ng-class="(music.allSongsOrderedBy === 'title') ? 'usedToOrderAllSongs' : ''" style="width: calc(40% - 70px); color: #ACACAC;">
+                                  <p style="margin-left: 10px;"><b>Name</b></p>
+                              </div>
+                              <div class="songListItemFieldContainer" style="width: 10%; color: #ACACAC;">
+                                  <p style="margin-left: 10px;"><b>Length</b></p>
+                              </div>
+                              <div class="songListItemFieldContainer" ng-click="orderSongsBy('artist', music.allSongs);"
+                                   ng-class="(music.allSongsOrderedBy === 'artist') ? 'usedToOrderAllSongs' : ''" style="width: 25%; color: #ACACAC;">
+                                  <p style="margin-left: 10px;"><b>Artist</b></p>
+                              </div>
+                              <div class="songListItemFieldContainer" ng-click="orderSongsBy('album', music.allSongs);"
+                                   ng-class="(music.allSongsOrderedBy === 'album') ? 'usedToOrderAllSongs' : ''" style="width: 25%; color: #ACACAC;">
+                                  <p style="margin-left: 10px;"><b>Album</b></p>
+                              </div>
+                          </div>
+                          <div class="songListItem" ng-repeat="song in music.allSongs track by $index">
+                              <div class="songListItemFieldContainer" style="width: 70px;">
+                                  <img ng-src="assets/albums/{{song.img}}.jpg" class="songListItemImg">
+                              </div>
+                              <div class="songListItemFieldContainer" style="width: calc(40% - 70px);">
+                                  <p style="margin-left: 10px;">{{song.title}}</p>
+                              </div>
+                              <div class="songListItemFieldContainer" style="width: 10%;">
+                                  <p style="margin-left: 10px;">{{song.length}}</p>
+                              </div>
+                              <div class="songListItemFieldContainer" style="width: 25%;">
+                                  <p style="margin-left: 10px;">{{song.artist}}</p>
+                              </div>
+                              <div class="songListItemFieldContainer" style="width: 25%;">
+                                  <p style="margin-left: 10px;">{{song.album}}</p>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <!--Playlists Main Page-->
+                  <div ng-show="music.organisedBy === 'playlists' && !playlistToDisplay">
+                      <div class="musicItemBox playlistBox" ng-repeat="playlist in music.playlists track by $index"
+                           ng-click="setupPlaylistToDisplay(playlist)" style="overflow: hidden">
+                          <div class="playlistImageContainer" style="height: 200px;">
+                              <img ng-src="assets/albums/{{playlist.coverArt[0]}}.jpg">
+                              <img ng-src="assets/albums/{{playlist.coverArt[1]}}.jpg">
+                              <img ng-src="assets/albums/{{playlist.coverArt[2]}}.jpg">
+                              <img ng-src="assets/albums/{{playlist.coverArt[3]}}.jpg">
+                          </div>
+                          <div style="width: 100%; height: 25%; padding-top: 13px;">
+                              <p style="margin: 0; text-align: center">{{playlist.name}}</p>
+                          </div>
+                      </div>
+                  </div>
+
+
+                  <div ng-show="playlistToDisplay">
+                      <div class="artistPageTitleContainer">
+                          <h2 style="text-align: center; line-height: 60px; margin: 0;">{{playlistToDisplay.name}}</h2>
+                      </div>
+                      <div class="songList">
+                          <div class="songListItemHeading">
+                              <div class="songListItemFieldContainer" style="width: 70px;"></div>
+                              <div class="songListItemFieldContainer" ng-click="orderSongsBy('title', playlistToDisplay);"
+                                   ng-class="(music.allSongsOrderedBy === 'title') ? 'usedToOrderAllSongs' : ''" style="width: calc(40% - 70px); color: #ACACAC;">
+                                  <p style="margin-left: 10px;"><b>Name</b></p>
+                              </div>
+                              <div class="songListItemFieldContainer" style="width: 10%; color: #ACACAC;">
+                                  <p style="margin-left: 10px;"><b>Length</b></p>
+                              </div>
+                              <div class="songListItemFieldContainer" ng-click="orderSongsBy('artist', playlistToDisplay);"
+                                   ng-class="(music.allSongsOrderedBy === 'artist') ? 'usedToOrderAllSongs' : ''" style="width: 25%; color: #ACACAC;">
+                                  <p style="margin-left: 10px;"><b>Artist</b></p>
+                              </div>
+                              <div class="songListItemFieldContainer" ng-click="orderSongsBy('album', playlistToDisplay);"
+                                   ng-class="(music.allSongsOrderedBy === 'album') ? 'usedToOrderAllSongs' : ''" style="width: 25%; color: #ACACAC;">
+                                  <p style="margin-left: 10px;"><b>Album</b></p>
+                              </div>
+                          </div>
+                          <div class="songListItem" ng-repeat="song in playlistToDisplay.songs track by $index">
+                              <div class="songListItemFieldContainer" style="width: 70px;">
+                                  <img ng-src="assets/albums/{{song.img}}.jpg" class="songListItemImg">
+                              </div>
+                              <div class="songListItemFieldContainer" style="width: calc(40% - 70px);">
+                                  <p style="margin-left: 10px;">{{song.title}}</p>
+                              </div>
+                              <div class="songListItemFieldContainer" style="width: 10%;">
+                                  <p style="margin-left: 10px;">{{song.length}}</p>
+                              </div>
+                              <div class="songListItemFieldContainer" style="width: 25%;">
+                                  <p style="margin-left: 10px;">{{song.artist}}</p>
+                              </div>
+                              <div class="songListItemFieldContainer" style="width: 25%;">
+                                  <p style="margin-left: 10px;">{{song.album}}</p>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+
+
+
+              </div>
+
+
+              <div id="musicControlsContainer">
+                  <div style="height: 80px; width: calc(50% - 80px); float: left; position: relative;">
+                      <p style="position: absolute; line-height: 80px; width: 10%; margin: 0 0 0 5%; color: #fafafa;">{{music.currentTrack.val}}</p>
+                      <md-slider min="0" max="100" ng-model="music.currentTrack.perc" ng-change="calculateCurrentTrackVal()" aria-label="red" id="trackSlider">
+                      </md-slider>
+                  </div>
+                  <div id="trackButtonsContainer">
+                      <div class="smallTrackButton">
+                          <img ng-src="assets/icons/back.png">
+                      </div>
+                      <div class="bigTrackButton" ng-click="togglePlayPause()">
+                          <img ng-src="assets/icons/{{playPauseIcon}}.png"  style="">
+                      </div>
+                      <div class="smallTrackButton">
+                          <img ng-src="assets/icons/skip.png">
+                      </div>
+                  </div>
+                  <div style="height: 80px; width: calc(50% - 130px); float: left;">
+                      <div id="shuffleButton"></div>
+                      <div id="repeatButton"></div>
+                  </div>
+              </div>
+
+
+
+          </div>
       </div>
 
     <script src="./bower_components/angular/angular.js"></script>
     <script src="./bower_components/angular-animate/angular-animate.js"></script>
     <script src="./bower_components/angular-aria/angular-aria.js"></script>
     <script src="./bower_components/angular-material/angular-material.js"></script>
-    <script src="bower_components/angular-ui-router.js"></script>
+    <!--<script src="bower_components/angular-ui-router.js"></script>-->
 
     <script src="js/app.js"></script>
 

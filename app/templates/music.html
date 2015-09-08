@@ -44,6 +44,8 @@
     </div>
 
 
+
+
     <div ng-show="music.organisedBy === 'albums'">
         <div class="musicItemBox albumBox" ng-repeat="album in music.allAlbums track by $index" style="overflow: hidden">
             <img ng-src="assets/albums/{{album.img}}.jpg" style="height: 100%; width: 100%; position: absolute;">
@@ -123,9 +125,10 @@
 
 
 
+</div>
 
 
-
+<div id="musicControlsContainer">
 
 </div>
 

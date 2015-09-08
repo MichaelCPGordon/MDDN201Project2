@@ -1,19 +1,44 @@
-<md-dialog aria-label="Mango (Fruit)">
+
+<style>
+    #userImage {
+        width: 100%;
+        height: 100%;
+        -webkit-border-radius: 75px;
+        -moz-border-radius: 75px;
+        border-radius: 75px;
+    }
+
+    #userNamesInputContainer {
+        width: calc(100% - 170px);
+        margin-right: 20px;
+        height: 150px;
+        float: left;
+    }
+</style>
+
+
+<md-dialog aria-label="Mango (Fruit)" style="min-width: 400px;">
     <form>
         <md-toolbar>
             <div class="md-toolbar-tools">
                 <h2>Account Settings</h2>
             </div>
         </md-toolbar>
-        <md-dialog-content style="max-width:800px; max-height:810px; ">
-            <md-input-container>
-                <label>First Name</label>
-                <input ng-model="account.firstName">
-            </md-input-container>
-            <md-input-container>
-                <label>Last Name</label>
-                <input ng-model="account.lastName">
-            </md-input-container>
+        <md-dialog-content>
+            <div id="userNamesInputContainer">
+                <md-input-container>
+                    <label>First Name</label>
+                    <input ng-model="account.firstName">
+                </md-input-container>
+                <md-input-container>
+                    <label>Last Name</label>
+                    <input ng-model="account.lastName">
+                </md-input-container>
+            </div>
+            <div style="width: 150px; height: 150px; float: left;">
+                <img ng-src="assets/jason.jpg" id="userImage">
+            </div>
+
             <md-input-container>
                 <label>Email</label>
                 <input ng-model="account.email">

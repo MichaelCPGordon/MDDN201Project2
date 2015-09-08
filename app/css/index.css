@@ -28,7 +28,7 @@
     height: 100%;
     width: 300px;
     position: fixed;
-    z-index: 1;
+    z-index: 5;
     box-shadow: 2px 0px 5px 0px rgba(0,0,0,0.25);
     background-color: #FCFCFC;
 }
@@ -41,7 +41,7 @@
     border-radius: 2px;
 }
 
-#userImageContainer {
+#nowPlayingCirlce {
     background-color: #5C6BC0;
     position: absolute;
     height: 80px;
@@ -51,6 +51,26 @@
     border-radius: 40px;
     left: 100px;
     top: 25px;
+}
+
+#userImageContainer {
+    background-color: #5C6BC0;
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    -webkit-border-radius: 40px;
+    -moz-border-radius: 40px;
+    border-radius: 40px;
+    left: 50px;
+    top: 10px;
+}
+
+#userImage {
+    width: 100%;
+    height: 100%;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    border-radius: 25px;
 }
 
 #userNameContainer {
@@ -70,7 +90,7 @@
 }
 
 #headerBarContainer {
-    z-index: 100;
+    z-index: 10;
     height: 70px;
     width: calc(100vw - 300px);
     position: fixed;
@@ -171,7 +191,111 @@
 }
 
 
+#trackButtonsContainer {
+    height: 80px;
+    width: 160px;
+    float: left;
+    display: block;
+    /*margin-left: auto;*/
+    /*margin-right: auto;*/
 
+}
 
+.smallTrackButton {
+    height: 30px;
+    width: 30px;
+    background-color: #3F51B5;
+    float: left;
+    margin: 25px 0 25px 0;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.smallTrackButton img {
+    width: 40%;
+    height: 40%;
+    margin-left: 30%;
+    margin-top: 30%;
+}
+
+.smallTrackButton:hover {
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.4);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.4);
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.4);
+}
+
+.bigTrackButton {
+    height: 50px;
+    width: 50px;
+    background-color: #3F51B5;
+    float: left;
+    margin: 15px 25px 15px 25px;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+.bigTrackButton:focus {
+    outline: none;
+    border: 0;
+}
+
+.bigTrackButton img {
+    width: 50%;
+    height: 50%;
+    margin-left: 25%;
+    margin-top: 25%;
+}
+
+.bigTrackButton:hover {
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.4);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.4);
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.4);
+}
+
+#trackSlider {
+    width: 70%;
+    margin-left: 15%;
+    margin-top: 16px;
+}
+
+.shuffleRepeatButton {
+    height: 25px;
+    cursor: pointer;
+    margin-top: 27.5px;
+    float: right;
+    margin-right: 30px;
+}
+
+#shuffleButton {
+    height: 25px;
+    width: 25px;
+    cursor: pointer;
+    margin-top: 27.5px;
+    float: right;
+    margin-right: 50px;
+    background-image: url('../assets/icons/shuffle.png');
+}
+
+#shuffleButton:hover {
+    background-image: url('../assets/icons/shuffleHover.png');
+}
+
+#repeatButton {
+    height: 25px;
+    width: 25px;
+    cursor: pointer;
+    margin-top: 27.5px;
+    float: right;
+    margin-right: 40px;
+    background-image: url('../assets/icons/repeat.png');
+}
+
+#repeatButton:hover {
+    background-image: url('../assets/icons/repeatHover.png');
+}
 
 

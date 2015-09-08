@@ -21,7 +21,7 @@ angular.module('services.music', [])
             { name: "A Perfect Circle", img: "aPerfectCircle", genre: genres[1], albums: [
                 { name: "Thirteenth Step", artist: "A Perfect Circle", img: "thirteenthStep", songs: [
                     "The Package", "Weak And Powerless", "The Noose", "Blue", "Vanishing",
-                    "A Stranger", "The Outsider", "Crimes", "the Nurse Who Loved Me",
+                    "A Stranger", "The Outsider", "Crimes", "The Nurse Who Loved Me",
                     "Pet", "Lullaby", "Gravity"
                 ]},
                 { name: "Mer De Noms", artist: "A Perfect Circle", img: "merDeNoms", songs: [
@@ -93,9 +93,9 @@ angular.module('services.music', [])
 
         var queue = [];
 
-        var generateQueue = function(songs, image){
+        var generateQueue = function(songs, image, artist){
             for (var i = 0; i < songs.length; i++){
-                queue.push({ title: songs[i], img: image });
+                queue.push({ title: songs[i].title, img: image, artist: artist });
             }
         };
 
@@ -103,7 +103,7 @@ angular.module('services.music', [])
 
         var createPlaylist = function(playlistName, albums){
             var newPlaylist = {
-                songs: [],
+                albums: [],
                 coverArt: [],
                 name: playlistName
             };
@@ -111,16 +111,41 @@ angular.module('services.music', [])
                 if (i < 4){
                     newPlaylist.coverArt.push(albums[i].img);
                 }
-                for (var j = 0;j < albums[i].songs.length; j++){
-                    newPlaylist.songs.push(albums[i].songs[j]);
-                }
+                newPlaylist.albums.push(albums[i]);
             }
             playlists.push(newPlaylist);
-        }
+        };
 
-        generateQueue(artists[0].albums[0].songs, artists[0].albums[0].img);
-        generateQueue(artists[3].albums[1].songs, artists[3].albums[1].img);
-        generateQueue(artists[2].albums[1].songs, artists[2].albums[1].img);
+        var generateSongLengths = function(){
+            var generate = function(){
+                var full = (Math.floor(Math.random() * 720) + 60);
+                var seconds = full % 60;
+                var mins = (full - seconds) / 60;
+
+                if (seconds < 10){
+                    seconds = "0" + seconds;
+                }
+                return mins + ":" + seconds;
+            }
+
+            for (var i = 0; i < artists.length; i++){
+                for (var j = 0; j < artists[i].albums.length; j++){
+                    for (var k = 0; k < artists[i].albums[j].songs.length; k++){
+                        artists[i].albums[j].songs[k] = {
+                            title: artists[i].albums[j].songs[k],
+                            length: generate()
+                        }
+                    }
+                }
+            }
+        };
+
+        generateSongLengths();
+
+        generateQueue(artists[2].albums[1].songs, artists[2].albums[1].img, artists[2]);
+        generateQueue(artists[5].albums[0].songs, artists[5].albums[0].img, artists[5]);
+        generateQueue(artists[1].albums[1].songs, artists[1].albums[1].img, artists[1]);
+
 
         createPlaylist("My Favourites", [
             artists[0].albums[0], artists[0].albums[1], artists[6].albums[0], artists[4].albums[1]
@@ -155,6 +180,38 @@ angular.module('services.music', [])
 
             getPlaylists: function(){
                 return playlists
+            },
+
+            getAlbumsByGenre: function(g){
+                var albums = [];
+                var album;
+                var genre;
+                var i, j;
+                for (i = 0; i < genres.length; i++){
+                    if (genres[i].name === g){
+                        genre = genres[i];
+                    }
+                }
+                for (i = 0; i < artists.length; i++){
+                    if (artists[i].genre === genre){
+                        for (j = 0; j < artists[i].albums.length; j++){
+                            album = artists[i].albums[j];
+                            album.artistName = artists[i].name;
+                            albums.push(album);
+                        }
+                    }
+                }
+                return albums;
+            },
+
+            getArtistForAlbum: function(albumName){
+                for (var i = 0; i < artists.length; i++){
+                    for (var j = 0; j < artists[i].albums.length; j++){
+                        if (artists[i].albums[j].name === albumName){
+                            return artists[i];
+                        }
+                    }
+                }
             }
 
 

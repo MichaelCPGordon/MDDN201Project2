@@ -1,7 +1,7 @@
 
 angular.module('app', [
     'ngMaterial',
-    'ui.router',
+    //'ui.router',
     'controllers.sideMenu',
     'controllers.music',
     'controllers.tv',
@@ -19,26 +19,26 @@ angular.module('app', [
     })
 
 
-    .config(function ($stateProvider, $urlRouterProvider) {
-        $stateProvider
-            .state('app', {
-                abstract: true
-            })
-            .state('music', {
-                url: '/music',
-                templateUrl: 'templates/music.html',
-                controller: 'MusicCtrl'
-            })
-            .state('tv', {
-                url: '/tv',
-                templateUrl: 'templates/tv.html',
-                controller: 'TVCtrl'
-            })
-            .state('movies', {
-                url: '/movies',
-                templateUrl: 'templates/movies.html',
-                controller: 'MoviesCtrl'
-            })
-
-        $urlRouterProvider.otherwise('/music');
-    });
+    //.config(function ($stateProvider, $urlRouterProvider) {
+    //    $stateProvider
+    //        .state('app', {
+    //            abstract: true
+    //        })
+    //        .state('music', {
+    //            url: '/music',
+    //            templateUrl: 'templates/music.html',
+    //            controller: 'MusicCtrl'
+    //        })
+    //        //.state('tv', {
+    //        //    url: '/tv',
+    //        //    templateUrl: 'templates/tv.html',
+    //        //    controller: 'TVCtrl'
+    //        //})
+    //        //.state('movies', {
+    //        //    url: '/movies',
+    //        //    templateUrl: 'templates/movies.html',
+    //        //    controller: 'MoviesCtrl'
+    //        //})
+    //
+    //    $urlRouterProvider.otherwise('/music');
+    //});

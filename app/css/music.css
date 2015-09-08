@@ -22,17 +22,17 @@
     box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.25);
     background-color: #5C6BC0;
     position: fixed;
-    z-index: 50;
+    z-index: 1;
 }
 
 #musicHeaderButtonContainer {
     height: 100%;
-    width: 70%;
+    width: 100%;
     float: left;
 }
 
 .musicHeaderButton {
-    width: 20%;
+    width: 15%;
     height: 100%;
     float: left;
 }
@@ -53,9 +53,9 @@
 #musicHeaderSearchBox {
     position: absolute;
     height: 40px;
-    width: calc(100% - 120px);
+    width: calc(100% - 60px);
     top: 15px;
-    left: 50px;
+    left: 30px;
     background-color: rgba(200,200,200,0.3);
     border-radius: 4px;
 }
@@ -77,11 +77,23 @@
 
 #musicItemsContainer {
     background-color: #E0E0E0;
-    height: calc(100% - 140px);
+    height: calc(100% - 220px);
     width: calc(100% - 300px);
     top: 140px;
+    bottom: 80px;
     position: fixed;
     overflow-y: auto;
+}
+
+#musicControlsContainer {
+    height: 80px;
+    width: calc(100% - 250px);
+    background-color: #5C6BC0;
+    position: fixed;
+    bottom: 0;
+    -webkit-box-shadow: 0px -3px 5px 0px rgba(0,0,0,0.2);
+    -moz-box-shadow: 0px -3px 5px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px -3px 5px 0px rgba(0,0,0,0.2);
 }
 
 .musicItemBox {
@@ -211,7 +223,7 @@
 .songListItemImg {
     width: 40px;
     height: 40px;
-    margin-left: 5px;
+    margin-left: 20px;
     margin-top: 5px;
 }
 
@@ -234,4 +246,92 @@
     width: 50%;
     float: left;
 }
+
+
+
+
+.artistPageHeaderCard {
+    width: 70%;
+    /*height: 500px;*/
+    /*-webkit-border-radius: 3px;*/
+    /*-moz-border-radius: 3px;*/
+    /*border-radius: 3px;*/
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+    margin-left: 15%;
+    margin-top: 20px;
+    overflow: hidden;
+    position: relative;
+}
+
+.artistPageMainImage {
+    width: 70%;
+    height: 100%;
+    margin-left: 15%;
+    margin-top: 20px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+}
+
+.artistPageTitleContainer {
+    height: 60px;
+    width: 40%;
+    margin-left: 30%;
+    margin-top: 10px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.artistPageAlbumContainer {
+    width: calc(70% - 40px);
+    min-height: 300px;
+    background-color: #fafafa;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+    margin-left: 15%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.artistPageAlbumImage {
+    width: 200px;
+    height: 200px;
+    margin: 10px;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+}
+
+.artistPageAlbumTitle {
+    margin: 10px 0 10px 15px;
+}
+.artistPageAlbumText {
+    margin: 0 0 10px 15px;
+}
+
+.artistPageSongContainer {
+    width: calc(100% - 220px);
+    margin-left: 230px;
+    height: 50px;
+    cursor: pointer;
+}
+
+.artistPageSongContainer:hover {
+    background-color: #C8C8C8;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
 
