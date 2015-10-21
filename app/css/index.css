@@ -42,7 +42,6 @@
 }
 
 #nowPlayingCircle {
-    background-color: #5C6BC0;
     position: absolute;
     height: 80px;
     width: 80px;
@@ -154,6 +153,15 @@
     width: 223px;
     height: 45px;
     float: left;
+}
+
+.musicQueueTextContainer p {
+    line-height: 45px;
+    margin: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 215px;
 }
 
 
@@ -301,5 +309,6 @@
 #standardFabButton {
     background-color: #3F51B5; position: fixed; bottom: 100px; right: 20px;
 }
+
 
 

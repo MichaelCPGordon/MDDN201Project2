@@ -21,12 +21,12 @@
               <img src="assets/gigastormLogo.png" style="margin-left: 20px; margin-top: 29.5px;">
           </div>
           <div class="sideMenuItemContainer" style="height: 180px;">
-              <img id="nowPlayingCircle" ng-src="assets/albums/{{music.queue[0].img}}.jpg">
+              <img id="nowPlayingCircle" src="assets/blank.gif" ng-src="{{music.queue[0].album.img.url}}">
 
               </img>
               <div id="userNameContainer">
-                  <h4 style="margin-bottom: 5px">{{music.queue[0].title}}</h4>
-                  <h5 style="margin-top: 5px;">{{music.queue[0].artist.name}}</h5>
+                  <h4 style="margin-bottom: 5px">{{music.queue[0].name}}</h4>
+                  <h5 style="margin-top: 5px;">{{music.queue[0].album.artist.name}}</h5>
               </div>
           </div>
 
@@ -40,10 +40,10 @@
                       <ul style="padding:0; margin: 0; height: 100%;">
                           <li ng-repeat="song in music.queue track by $index" class="musicQueueListItem">
                               <div class="musicQueueIconContainer">
-                                  <img ng-src="assets/albums/{{song.img}}.jpg" class="musicQueueItemIcon">
+                                  <img ng-src="{{song.album.imgSmall.url}}" class="musicQueueItemIcon">
                               </div>
                               <div class="musicQueueTextContainer">
-                                  <p style="line-height: 45px; margin: 0;">{{song.title}}</p>
+                                  <p>{{song.name}}</p>
                               </div>
                           </li>
                       </ul>
@@ -94,7 +94,7 @@
                           <md-button ng-click="organiseMusicBy('genres')" class="musicHeaderButtonText">Genres</md-button>
                       </div>
                       <div class="musicHeaderButton">
-                          <md-button ng-click="organiseMusicBy('songs'); orderSongsBy('artist', music.allSongs)" class="musicHeaderButtonText">Songs</md-button>
+                          <md-button ng-click="organiseMusicBy('songs'); orderTracksBy('artist', music.songs)" class="musicHeaderButtonText">Songs</md-button>
                       </div>
                       <div class="musicHeaderButton">
                           <md-button ng-click="organiseMusicBy('playlists')" class="musicHeaderButtonText">Playlists</md-button>

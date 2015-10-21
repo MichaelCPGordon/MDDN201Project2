@@ -15,19 +15,20 @@
     <div class="songList">
         <div class="songListItemHeading">
             <div class="songListItemFieldContainer" style="width: 70px;"></div>
-            <div class="songListItemFieldContainer" ng-click="orderSongsBy('title', music.song);"
-                 ng-class="(music.allSongsOrderedBy === 'title') ? 'usedToOrderAllSongs' : ''" style="width: calc(40% - 70px); color: #ACACAC;">
+            <div class="songListItemFieldContainer" ng-click="orderTracksBy('name', music.songs);"
+                 ng-class="(music.allTracksOrderedBy === 'name') ? 'usedToOrderAllSongs' : ''" style="width: calc(40% - 70px); color: #ACACAC;">
                 <p style="margin-left: 10px;"><b>Name</b></p>
             </div>
-            <div class="songListItemFieldContainer" style="width: 10%; color: #ACACAC;">
+            <div class="songListItemFieldContainer"  ng-click="orderTracksBy('length', music.songs);"
+                 ng-class="(music.allTracksOrderedBy === 'length') ? 'usedToOrderAllSongs' : ''" style="width: 10%; color: #ACACAC;">
                 <p style="margin-left: 10px;"><b>Length</b></p>
             </div>
-            <div class="songListItemFieldContainer" ng-click="orderSongsBy('artist', music.allSongs);"
-                 ng-class="(music.allSongsOrderedBy === 'artist') ? 'usedToOrderAllSongs' : ''" style="width: 25%; color: #ACACAC;">
+            <div class="songListItemFieldContainer" ng-click="orderTracksBy('artist', music.songs);"
+                 ng-class="(music.allTracksOrderedBy === 'artist') ? 'usedToOrderAllSongs' : ''" style="width: 25%; color: #ACACAC;">
                 <p style="margin-left: 10px;"><b>Artist</b></p>
             </div>
-            <div class="songListItemFieldContainer" ng-click="orderSongsBy('album', music.allSongs);"
-                 ng-class="(music.allSongsOrderedBy === 'album') ? 'usedToOrderAllSongs' : ''" style="width: 25%; color: #ACACAC;">
+            <div class="songListItemFieldContainer" ng-click="orderTracksBy('album', music.songs);"
+                 ng-class="(music.allTracksOrderedBy === 'album') ? 'usedToOrderAllSongs' : ''" style="width: 25%; color: #ACACAC;">
                 <p style="margin-left: 10px;"><b>Album</b></p>
             </div>
         </div>

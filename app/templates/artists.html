@@ -65,7 +65,7 @@
 <div ng-show="music.organisedBy === 'artists' && !artistToDisplay" style="padding: 20px;">
     <div style="float: left; margin-top: 20px; margin-bottom: 20px;" ng-repeat="artist in music.artists track by $index">
         <div class="artistCircle" style="overflow: hidden">
-            <img ng-src="{{artist.img.url}}" ng-click="displayArtist(artist.name)"
+            <img ng-src="{{artist.img.url}}" ng-click="displayArtist(artist)"
                  ng-class="artist.img.width < artist.img.height ? 'artistImagePortrait' : 'artistImageLandscape'">
         </div>
         <div class="artistNameContainer">
@@ -77,19 +77,19 @@
 
 <!--Single Artist Page-->
 <div ng-show="artistToDisplay">
-    <img ng-if="artistToDisplay.name !== ''" ng-src="assets/artists/{{artistToDisplay.img}}.jpg" class="artistPageMainImage">
+    <img ng-if="artistToDisplay.name !== ''" ng-src="{{artistToDisplay.imgLarge.url}}" class="artistPageMainImage">
     <div class="artistPageTitleContainer">
         <h2 style="text-align: center; line-height: 60px; margin: 0;">{{artistToDisplay.name}}</h2>
     </div>
     <div class="artistPageAlbumContainer" ng-repeat="album in artistToDisplay.albums track by $index">
         <div style="width: 220px; height: 300px; float: left;">
-            <img ng-src="assets/albums/{{album.img}}.jpg" class="artistPageAlbumImage">
-            <h2 class="artistPageAlbumTitle">{{album.name}}</h2>
-            <h4 class="artistPageAlbumText">{{album.songs.length}} songs</h4>
+            <img ng-src="{{album.img.url}}" class="artistPageAlbumImage">
+            <h3 class="artistPageAlbumTitle">{{album.name}}</h3>
+            <!--<h4 class="artistPageAlbumText">{{album.songs.length}} songs</h4>-->
         </div>
-        <div class="artistPageSongContainer" ng-repeat="song in album.songs">
-            <p style="line-height: 50px; margin: 0 0 0 20px; float: left; width: 50%;">{{song.title}}</p>
-            <p style="line-height: 50px; margin: 0; float: right; width: 20%;">{{song.length}}</p>
+        <div class="artistPageSongContainer" ng-repeat="track in album.tracks">
+            <p style="margin: 0 0 0 20px; float: left; width: calc(85% - 40px);">{{track.name}}</p>
+            <p style="margin: 0; float: right; width: 15%;">{{track.durationString}}</p>
         </div>
     </div>
 </div>

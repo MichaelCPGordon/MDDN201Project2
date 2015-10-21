@@ -1,6 +1,17 @@
 angular.module('controllers.music', [])
 
-    .controller('MusicCtrl', function($scope, MusicService, AccountService, $rootScope, $mdDialog, Spotify){
+    .controller('MusicCtrl', function($scope, MusicService, AccountService, $rootScope, $mdDialog){
+
+        $scope.calculateCurrentTrackVal = function(){
+            var secTotal = parseInt($scope.music.currentTrack.seconds * ($scope.music.currentTrack.perc / 100));
+            var sec = secTotal % 60;
+            var mins = (secTotal - sec) / 60;
+            if (sec < 10){
+                sec = "0" + sec;
+            }
+
+            $scope.music.currentTrack.val = mins + ":" + sec;
+        };
 
         var genreBoxColors = [
             "#EF5350", "#5C6BC0", "#26A69A", "#9CCC65", "#FFA726", "#66BB6A", "#7E57C2"
@@ -18,116 +29,71 @@ angular.module('controllers.music', [])
             }
         };
 
-        $scope.orderSongsBy = function(field, songs){
-            if (field === "title"){
-                $scope.music.allSongsOrderedBy = "title";
-                songs.sort(function(a, b){
-                    if(a.title < b.title) return -1;
-                    if(a.title > b.title) return 1;
+        $scope.orderTracksBy = function(field, tracks){
+            if (field === "name"){
+                $scope.music.allTracksOrderedBy = "name";
+                tracks.sort(function(a, b){
+                    if(a.name < b.name) return -1;
+                    if(a.name > b.name) return 1;
+                    if(a.album.artist.name < b.album.artist.name) return -1;
+                    if(a.album.artist.name > b.album.artist.name) return 1;
+                    return 0;
+                });
+            }
+            else if (field === "length"){
+                $scope.music.allTracksOrderedBy = "length";
+                tracks.sort(function(a, b){
+                    if(a.duration < b.duration) return -1;
+                    if(a.duration > b.duration) return 1;
+                    if(a.album.artist.name < b.album.artist.name) return -1;
+                    if(a.album.artist.name > b.album.artist.name) return 1;
                     return 0;
                 });
             }
             else if (field === "album"){
-                $scope.music.allSongsOrderedBy = "album";
-                songs.sort(function(a, b){
-                    if(a.album < b.album) return -1;
-                    if(a.album > b.album) return 1;
-                    if(a.artist < b.artist) return -1;
-                    if(a.artist > b.artist) return 1;
-                    if(a.index < b.index) return -1;
-                    if(a.index > b.index) return 1;
+                $scope.music.allTracksOrderedBy = "album";
+                tracks.sort(function(a, b){
+                    if(a.album.name < b.album.name) return -1;
+                    if(a.album.name > b.album.name) return 1;
+                    if(a.album.artist.name < b.album.artist.name) return -1;
+                    if(a.album.artist.name > b.album.artist.name) return 1;
+                    if(a.trackNo < b.trackNo) return -1;
+                    if(a.trackNo > b.trackNo) return 1;
                     return 0;
                 });
             }
             else if (field === "artist"){
-                $scope.music.allSongsOrderedBy = "artist";
-                songs.sort(function(a, b){
-                    if(a.artist < b.artist) return -1;
-                    if(a.artist > b.artist) return 1;
-                    if(a.album < b.album) return -1;
-                    if(a.album > b.album) return 1;
-                    if(a.index < b.index) return -1;
-                    if(a.index > b.index) return 1;
+                $scope.music.allTracksOrderedBy = "artist";
+                tracks.sort(function(a, b){
+                    if(a.album.artist.name < b.album.artist.name) return -1;
+                    if(a.album.artist.name > b.album.artist.name) return 1;
+                    if(a.album.name < b.album.name) return -1;
+                    if(a.album.name > b.album.name) return 1;
+                    if(a.trackNo < b.trackNo) return -1;
+                    if(a.trackNo > b.trackNo) return 1;
                     return 0;
                 });
             }
         };
 
-        $scope.setupAllSongs = function(){
-            var artists = MusicService.getArtists();
-            var allSongs = [];
 
-            for (var i = 0; i < artists.length; i++){
-                for (var j = 0; j < artists[i].albums.length; j++){
-                    for (var k = 0; k < artists[i].albums[j].songs.length; k++){
-                        allSongs.push({
-                            title: artists[i].albums[j].songs[k].title,
-                            artist: artists[i].name,
-                            album: artists[i].albums[j].name,
-                            img: artists[i].albums[j].img,
-                            length: artists[i].albums[j].songs[k].length,
-                            index: k
-                        })
-                    }
-                }
-            }
-            return allSongs;
+
+        $scope.displayArtist = function(artist){
+            $scope.artistToDisplay = artist;
         };
 
-        $scope.getCurrentSongLengthSeconds = function(){
-            var trackLen;
-            var mins, sec;
-            for (var i = 0; i < $scope.music.allSongs.length; i++){
-                if ($scope.music.allSongs[i].title === "First Fires"){
-                    trackLen = $scope.music.allSongs[i].length;
-                }
-            }
-            mins = parseInt(trackLen.substr(0, trackLen.indexOf(':')));
-            sec = parseInt(trackLen.substr(trackLen.indexOf(':') + 1, trackLen.length));
-            $scope.music.currentTrack.seconds = mins * 60 + sec;
+        $scope.displayAlbum = function(album){
+            $scope.albumToDisplay = album;
         };
 
-        $scope.calculateCurrentTrackVal = function(){
-            var secTotal = parseInt($scope.music.currentTrack.seconds * ($scope.music.currentTrack.perc / 100));
-            var sec = secTotal % 60;
-            var mins = (secTotal - sec) / 60;
-            if (sec < 10){
-                sec = "0" + sec;
-            }
-
-            $scope.music.currentTrack.val = mins + ":" + sec;
-        };
-
-        $scope.displayArtist = function(artistName){
-            for (var i = 0; i < $scope.music.artists.length; i++){
-                if ($scope.music.artists[i].name === artistName){
-                    $scope.artistToDisplay = $scope.music.artists[i];
+        $scope.displayGenre = function(genre){
+            $scope.genreToDisplay = genre;
+            $scope.albumsFromGenre = [];
+            for (var i = 0; i < genre.artists.length; i++){
+                for (var j = 0; j < genre.artists[i].albums.length; j++){
+                    $scope.albumsFromGenre.push(genre.artists[i].albums[j]);
                 }
             }
-        };
-
-        $scope.displayAlbum = function(albumName){
-            for (var i = 0; i < $scope.music.allAlbums.length; i++){
-                if ($scope.music.allAlbums[i].name === albumName){
-                    $scope.albumToDisplay = $scope.music.allAlbums[i];
-                }
-            }
-            for (i = 0; i < $scope.music.artists.length; i++){
-                for (var j = 0; j < $scope.music.artists[i].albums.length; j++){
-                    if ($scope.music.artists[i].albums[j].name === albumName){
-                        $scope.albumToDisplay.artistName = $scope.music.artists[i].name;
-                    }
-                }
-            }
-        };
-
-        $scope.displayGenre = function(genreName){
-            for (var i = 0; i < $scope.music.genres.length; i++){
-                if ($scope.music.genres[i].name === genreName){
-                    $scope.genreToDisplay = $scope.music.genres[i];
-                }
-            }
-            $scope.albumsFromGenre = MusicService.getAlbumsByGenre($scope.genreToDisplay.name);
         };
 
 
@@ -175,13 +141,8 @@ angular.module('controllers.music', [])
         $scope.playlistToDisplay = null;
 
         $scope.music = {
-            genres: MusicService.getGenres(),
-            artists: MusicService.getArtists(),
-            playlists: MusicService.getPlaylists(),
-            allAlbums: MusicService.getAllAlbums(),
-            allSongs: $scope.setupAllSongs(),
-            allSongsOrderedBy: "artist",
-            queue: MusicService.getQueue(),
+            allTracksOrderedBy: "artist",
+            queue: [],
             organisedBy: "artists",
             currentTrack: {
                 perc: 70,
@@ -195,86 +156,17 @@ angular.module('controllers.music', [])
             $scope.music.albums = MusicService.getAllAlbums();
             $scope.music.genres = MusicService.getAllGenres();
             $scope.music.songs = MusicService.getAllTracks();
-            //console.log($scope.music.songs);
             $scope.generateRandomGenreBoxColors();
+
+            $scope.addTracksToQueue($scope.music.albums[20].tracks);
+            $scope.addTracksToQueue($scope.music.albums[21].tracks);
         });
 
-
-        //Spotify.search("Bonobo", "artist").then(function(data){
-        //    console.log(data);
-        //});
-
-        //Spotify.getArtist("6Tyzp9KzpiZ04DABQoedps").then(function(data){
-        //    console.log(data);
-        //});
-
-        //Spotify.getArtistAlbums("4DFhHyjvGYa9wxdHUjtDkc").then(function(data){
-        //    console.log(data);
-        //});
-        //
-        //Spotify.getAlbumTracks("0AddFW17f8gMJw7odPN3xI").then(function(data){
-        //    console.log(data);
-        //});
-
-        //var printAlbumTrackIds = function(albumId){
-        //    Spotify.getAlbumTracks(albumId).then(function(data){
-        //        console.log(data);
-        //    });
-        //};
-
-        //$scope.albumIds = "";
-        //
-        //$scope.generateArtistCardInfo = function(){
-        //    var idString = MusicService.getArtistIdsAsCommaSeparatedString();
-        //    $scope.artistCardInfo = [];
-        //    $scope.albumCardInfo = [];
-        //
-        //    Spotify.getArtists(idString).then(function(data){
-        //        for (var i = 0; i < data.artists.length; i++){
-        //            $scope.artistCardInfo.push({
-        //                name: data.artists[i].name,
-        //                id: data.artists[i].id,
-        //                img: {
-        //                    url: data.artists[i].images[1].url,
-        //                    height: data.artists[i].images[1].height,
-        //                    width: data.artists[i].images[1].width
-        //                }
-        //            });
-        //            $scope.setupArtistAlbums($scope.artistCardInfo[i]);
-        //        }
-        //    });
-        //};
-        //
-        //$scope.setupArtistAlbums = function(artistCard){
-        //    Spotify.getArtistAlbums(artistCard.id, { album_type: 'album', country: 'NZ', limit: 5 }).then(function(data){
-        //        artistCard.albumIds = [];
-        //        for (var i = 0; i < data.items.length; i++){
-        //            artistCard.albumIds.push(data.items[i].id);
-        //            $scope.albumCardInfo.push({
-        //                name: data.items[i].name,
-        //                id: data.items[i].id,
-        //                artistName: artistCard.name,
-        //                img: {
-        //                    url: data.items[i].images[1].url,
-        //                    height: data.items[i].images[1].height,
-        //                    width: data.items[i].images[1].width
-        //                }
-        //            });
-        //            $scope.albumIds += "'" + data.items[i].id + "', ";
-        //        }
-        //    });
-        //};
-        //
-        //$scope.generateArtistCardInfo();
-
-
-
-
-
-
-
-
-
+        $scope.addTracksToQueue = function(tracks){
+            for (var i = 0; i < tracks.length; i++){
+                $scope.music.queue.push(tracks[i]);
+            }
+        };
 
 
 
@@ -338,9 +230,9 @@ angular.module('controllers.music', [])
             };
         }
 
-        $scope.generateRandomGenreBoxColors();
-        $scope.orderSongsBy("artist", $scope.music.allSongs);
-        $scope.getCurrentSongLengthSeconds();
+        //$scope.generateRandomGenreBoxColors();
+        //$scope.orderTracksBy("artist", $scope.music.allSongs);
+        //$scope.getCurrentSongLengthSeconds();
         $scope.calculateCurrentTrackVal();
 
 

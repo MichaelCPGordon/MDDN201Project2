@@ -20,7 +20,7 @@
     <div class="musicItemBox albumBox" ng-repeat="album in music.albums track by $index" style="overflow: hidden">
         <img ng-src="{{album.img.url}}" style="height: 100%; width: 100%; position: absolute;">
         <div class="albumImageContainer">
-            <img style="width: 100%; height: 200px;" ng-click="displayAlbum(album.name)" ng-src="{{album.img.url}}">
+            <img style="width: 100%; height: 200px;" ng-click="displayAlbum(album)" ng-src="{{album.img.url}}">
         </div>
         <img class="frostedAlbumImage" ng-src="{{album.img.url}}">
         <div class="albumTextContainer">
@@ -37,13 +37,12 @@
 <!--Single Album Page-->
 <div class="artistPageAlbumContainer" style="min-height: 340px;" ng-show="albumToDisplay">
     <div style="width: 220px; height: 300px; float: left;">
-        <img ng-src="assets/albums/{{albumToDisplay.img}}.jpg" class="artistPageAlbumImage">
+        <img ng-src="{{albumToDisplay.img.url}}" class="artistPageAlbumImage">
         <h2 class="artistPageAlbumTitle">{{albumToDisplay.name}}</h2>
-        <h3 class="artistPageAlbumTitle">{{albumToDisplay.artistName}}</h3>
-        <h4 class="artistPageAlbumText">{{albumToDisplay.songs.length}} songs</h4>
+        <h3 class="artistPageAlbumTitle">{{albumToDisplay.artist.name}}</h3>
     </div>
-    <div class="artistPageSongContainer" ng-repeat="song in albumToDisplay.songs">
-        <p style="line-height: 50px; margin: 0 0 0 20px; float: left; width: 50%;">{{song.title}}</p>
-        <p style="line-height: 50px; margin: 0; float: right; width: 20%;">{{song.length}}</p>
+    <div class="artistPageSongContainer" ng-repeat="track in albumToDisplay.tracks">
+        <p style="margin: 0 0 0 20px; float: left; width: calc(85% - 40px);">{{track.name}}</p>
+        <p style="margin: 0; float: right; width: 15%;">{{track.durationString}}</p>
     </div>
 </div>
