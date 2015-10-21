@@ -1,0 +1,49 @@
+<!--&lt;!&ndash;Albums Main Page&ndash;&gt;-->
+<!--<div ng-show="music.organisedBy === 'albums' && !albumToDisplay">-->
+    <!--<div class="musicItemBox albumBox" ng-repeat="album in music.allAlbums track by $index" style="overflow: hidden">-->
+        <!--<img ng-src="assets/albums/{{album.img}}.jpg" style="height: 100%; width: 100%; position: absolute;">-->
+        <!--<div class="albumImageContainer">-->
+            <!--<img style="width: 100%; height: 200px;" ng-click="displayAlbum(album.name)" ng-src="assets/albums/{{album.img}}.jpg">-->
+        <!--</div>-->
+        <!--<img class="frostedAlbumImage" ng-src="assets/albums/{{album.img}}.jpg">-->
+        <!--<div class="albumTextContainer">-->
+            <!--<p class="albumText" style="font-size: 15px;">{{album.name}}</p>-->
+            <!--<p class="albumText" style="font-size: 13px;">{{album.artist}}</p>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+
+
+
+<!--Albums Main Page-->
+<div ng-show="music.organisedBy === 'albums' && !albumToDisplay">
+    <div class="musicItemBox albumBox" ng-repeat="album in albumCardInfo track by $index" style="overflow: hidden">
+        <img ng-src="{{album.img.url}}" style="height: 100%; width: 100%; position: absolute;">
+        <div class="albumImageContainer">
+            <img style="width: 100%; height: 200px;" ng-click="displayAlbum(album.name)" ng-src="{{album.img.url}}">
+        </div>
+        <img class="frostedAlbumImage" ng-src="{{album.img.url}}">
+        <div class="albumTextContainer">
+            <div>
+                <p class="albumText" style="font-size: 15px;">{{album.name}}</p>
+            </div>
+            <div>
+                <p class="albumText" style="font-size: 13px;">{{album.id}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Single Album Page-->
+<div class="artistPageAlbumContainer" style="min-height: 340px;" ng-show="albumToDisplay">
+    <div style="width: 220px; height: 300px; float: left;">
+        <img ng-src="assets/albums/{{albumToDisplay.img}}.jpg" class="artistPageAlbumImage">
+        <h2 class="artistPageAlbumTitle">{{albumToDisplay.name}}</h2>
+        <h3 class="artistPageAlbumTitle">{{albumToDisplay.artistName}}</h3>
+        <h4 class="artistPageAlbumText">{{albumToDisplay.songs.length}} songs</h4>
+    </div>
+    <div class="artistPageSongContainer" ng-repeat="song in albumToDisplay.songs">
+        <p style="line-height: 50px; margin: 0 0 0 20px; float: left; width: 50%;">{{song.title}}</p>
+        <p style="line-height: 50px; margin: 0; float: right; width: 20%;">{{song.length}}</p>
+    </div>
+</div>

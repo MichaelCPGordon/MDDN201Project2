@@ -1,0 +1,63 @@
+<!--Playlists Main Page-->
+<div ng-show="music.organisedBy === 'playlists' && !playlistToDisplay">
+    <md-button class="md-fab" style="background-color: #5C6BC0; position: fixed; top: 160px; right: 10px;">
+        <md-tooltip md-direction="left">Create New Playlist</md-tooltip>
+        <md-icon md-svg-src="assets/icons/plus.svg"></md-icon>
+    </md-button>
+    <div class="musicItemBox playlistBox" ng-repeat="playlist in music.playlists track by $index"
+         ng-click="setupPlaylistToDisplay(playlist)" style="overflow: hidden">
+        <div class="playlistImageContainer" style="height: 200px;">
+            <img ng-src="assets/albums/{{playlist.coverArt[0]}}.jpg">
+            <img ng-src="assets/albums/{{playlist.coverArt[1]}}.jpg">
+            <img ng-src="assets/albums/{{playlist.coverArt[2]}}.jpg">
+            <img ng-src="assets/albums/{{playlist.coverArt[3]}}.jpg">
+        </div>
+        <div style="width: 100%; height: 25%; padding-top: 13px;">
+            <p style="margin: 0; text-align: center">{{playlist.name}}</p>
+        </div>
+    </div>
+</div>
+
+<!--Playlists Single Page-->
+<div ng-show="playlistToDisplay">
+    <div class="artistPageTitleContainer">
+        <h2 style="text-align: center; line-height: 60px; margin: 0;">{{playlistToDisplay.name}}</h2>
+    </div>
+    <div class="songList">
+        <div class="songListItemHeading">
+            <div class="songListItemFieldContainer" style="width: 70px;"></div>
+            <div class="songListItemFieldContainer" ng-click="orderSongsBy('title', playlistToDisplay.songs);"
+                 ng-class="(music.allSongsOrderedBy === 'title') ? 'usedToOrderAllSongs' : ''" style="width: calc(40% - 70px); color: #ACACAC;">
+                <p style="margin-left: 10px;"><b>Name</b></p>
+            </div>
+            <div class="songListItemFieldContainer" style="width: 10%; color: #ACACAC;">
+                <p style="margin-left: 10px;"><b>Length</b></p>
+            </div>
+            <div class="songListItemFieldContainer" ng-click="orderSongsBy('artist', playlistToDisplay.songs);"
+                 ng-class="(music.allSongsOrderedBy === 'artist') ? 'usedToOrderAllSongs' : ''" style="width: 25%; color: #ACACAC;">
+                <p style="margin-left: 10px;"><b>Artist</b></p>
+            </div>
+            <div class="songListItemFieldContainer" ng-click="orderSongsBy('album', playlistToDisplay.songs);"
+                 ng-class="(music.allSongsOrderedBy === 'album') ? 'usedToOrderAllSongs' : ''" style="width: 25%; color: #ACACAC;">
+                <p style="margin-left: 10px;"><b>Album</b></p>
+            </div>
+        </div>
+        <div class="songListItem" ng-repeat="song in playlistToDisplay.songs track by $index">
+            <div class="songListItemFieldContainer" style="width: 70px;">
+                <img ng-src="assets/albums/{{song.img}}.jpg" class="songListItemImg">
+            </div>
+            <div class="songListItemFieldContainer" style="width: calc(40% - 70px);">
+                <p style="margin-left: 10px;">{{song.title}}</p>
+            </div>
+            <div class="songListItemFieldContainer" style="width: 10%;">
+                <p style="margin-left: 10px;">{{song.length}}</p>
+            </div>
+            <div class="songListItemFieldContainer" style="width: 25%;">
+                <p style="margin-left: 10px;">{{song.artist}}</p>
+            </div>
+            <div class="songListItemFieldContainer" style="width: 25%;">
+                <p style="margin-left: 10px;">{{song.album}}</p>
+            </div>
+        </div>
+    </div>
+</div>

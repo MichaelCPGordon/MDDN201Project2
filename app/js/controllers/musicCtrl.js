@@ -1,37 +1,6 @@
 angular.module('controllers.music', [])
 
-    .controller('MusicCtrl', function($scope, MusicService, AccountService, $rootScope, $mdDialog){
-
-        $scope.account = AccountService.getAccountDetails();
-
-        $rootScope.$on("updateAccountDetails", function(){
-            $scope.account = AccountService.getAccountDetails();
-        });
-
-        $scope.showSettings = function(ev) {
-            $mdDialog.show({
-                controller: DialogController,
-                templateUrl: 'templates/settingsDialog.html',
-                focusOnOpen: true,
-                targetEvent: ev,
-                clickOutsideToClose:true
-            });
-        };
-
-        function DialogController($scope, $mdDialog, AccountService, $rootScope) {
-
-            $scope.account = angular.copy(AccountService.getAccountDetails());
-
-            $scope.hide = function() {
-                AccountService.updateAccountDetails($scope.account);
-                $rootScope.$broadcast("updateAccountDetails");
-                $mdDialog.hide();
-            };
-            $scope.cancel = function() {
-                $rootScope.$broadcast("updateAccountDetails");
-                $mdDialog.cancel();
-            };
-        }
+    .controller('MusicCtrl', function($scope, MusicService, AccountService, $rootScope, $mdDialog, Spotify){
 
         var genreBoxColors = [
             "#EF5350", "#5C6BC0", "#26A69A", "#9CCC65", "#FFA726", "#66BB6A", "#7E57C2"
@@ -221,6 +190,97 @@ angular.module('controllers.music', [])
             }
         };
 
+
+        //Spotify.search("Bonobo", "artist").then(function(data){
+        //    console.log(data);
+        //});
+
+        //Spotify.getArtist("6Tyzp9KzpiZ04DABQoedps").then(function(data){
+        //    console.log(data);
+        //});
+
+        //Spotify.getArtistAlbums("4DFhHyjvGYa9wxdHUjtDkc").then(function(data){
+        //    console.log(data);
+        //});
+        //
+        //Spotify.getAlbumTracks("0AddFW17f8gMJw7odPN3xI").then(function(data){
+        //    console.log(data);
+        //});
+
+        //var printAlbumTrackIds = function(albumId){
+        //    Spotify.getAlbumTracks(albumId).then(function(data){
+        //        console.log(data);
+        //    });
+        //};
+
+        //$scope.albumIds = "";
+        //
+        //$scope.generateArtistCardInfo = function(){
+        //    var idString = MusicService.getArtistIdsAsCommaSeparatedString();
+        //    $scope.artistCardInfo = [];
+        //    $scope.albumCardInfo = [];
+        //
+        //    Spotify.getArtists(idString).then(function(data){
+        //        for (var i = 0; i < data.artists.length; i++){
+        //            $scope.artistCardInfo.push({
+        //                name: data.artists[i].name,
+        //                id: data.artists[i].id,
+        //                img: {
+        //                    url: data.artists[i].images[1].url,
+        //                    height: data.artists[i].images[1].height,
+        //                    width: data.artists[i].images[1].width
+        //                }
+        //            });
+        //            $scope.setupArtistAlbums($scope.artistCardInfo[i]);
+        //        }
+        //    });
+        //};
+        //
+        //$scope.setupArtistAlbums = function(artistCard){
+        //    Spotify.getArtistAlbums(artistCard.id, { album_type: 'album', country: 'NZ', limit: 5 }).then(function(data){
+        //        artistCard.albumIds = [];
+        //        for (var i = 0; i < data.items.length; i++){
+        //            artistCard.albumIds.push(data.items[i].id);
+        //            $scope.albumCardInfo.push({
+        //                name: data.items[i].name,
+        //                id: data.items[i].id,
+        //                artistName: artistCard.name,
+        //                img: {
+        //                    url: data.items[i].images[1].url,
+        //                    height: data.items[i].images[1].height,
+        //                    width: data.items[i].images[1].width
+        //                }
+        //            });
+        //            $scope.albumIds += "'" + data.items[i].id + "', ";
+        //        }
+        //    });
+        //};
+        //
+        //$scope.generateArtistCardInfo();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         $scope.playPauseIcon = "play";
         $scope.shuffleIcon = "assets/icons/shuffle.png";
         $scope.repeatIcon = "assets/icons/repeat.png";
@@ -230,23 +290,44 @@ angular.module('controllers.music', [])
             direction: "up"
         };
 
+        //$scope.topDirections = ['left', 'up'];
+        //$scope.bottomDirections = ['down', 'right'];
+        //$scope.isOpen = false;
+        //$scope.availableModes = ['md-fling', 'md-scale'];
+        //$scope.selectedMode = 'md-fling';
+        //$scope.availableDirections = ['up', 'down', 'left', 'right'];
+        //$scope.selectedDirection = 'up';
 
-        $scope.topDirections = ['left', 'up'];
-        $scope.bottomDirections = ['down', 'right'];
-        $scope.isOpen = false;
-        $scope.availableModes = ['md-fling', 'md-scale'];
-        $scope.selectedMode = 'md-fling';
-        $scope.availableDirections = ['up', 'down', 'left', 'right'];
-        $scope.selectedDirection = 'up';
+        $scope.account = AccountService.getAccountDetails();
 
+        $scope.$on("updateAccountDetails", function(){
+            $scope.account = AccountService.getAccountDetails();
+        });
 
+        $scope.showSettings = function(ev) {
+            $mdDialog.show({
+                controller: DialogController,
+                templateUrl: 'templates/settingsDialog.html',
+                focusOnOpen: true,
+                targetEvent: ev,
+                clickOutsideToClose:true
+            });
+        };
 
+        function DialogController($scope, $mdDialog, AccountService, $rootScope) {
 
+            $scope.account = angular.copy(AccountService.getAccountDetails());
 
-
-
-
-
+            $scope.hide = function() {
+                AccountService.updateAccountDetails($scope.account);
+                $rootScope.$broadcast("updateAccountDetails");
+                $mdDialog.hide();
+            };
+            $scope.cancel = function() {
+                $rootScope.$broadcast("updateAccountDetails");
+                $mdDialog.cancel();
+            };
+        }
 
         $scope.generateRandomGenreBoxColor();
         $scope.orderSongsBy("artist", $scope.music.allSongs);

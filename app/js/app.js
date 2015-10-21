@@ -3,7 +3,8 @@ angular.module('app', [
     'ngMaterial',
     'controllers.music',
     'services.music',
-    'services.account'
+    'services.account',
+    'spotify'
 ])
 
 .config(function($mdThemingProvider){

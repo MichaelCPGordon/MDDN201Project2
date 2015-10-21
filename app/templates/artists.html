@@ -1,0 +1,95 @@
+<!--&lt;!&ndash;Artist Main Page&ndash;&gt;-->
+<!--<div ng-show="music.organisedBy === 'artists' && !artistToDisplay">-->
+    <!--<div class="musicItemBox artistBox" ng-repeat="artist in music.artists track by $index" style="overflow: hidden">-->
+        <!--<div class="artistImageContainer" style="height: 75%;">-->
+            <!--<img ng-src="assets/artists/{{artist.img}}.jpg" ng-click="displayArtist(artist.name)" style="max-height: 100%; display: block; margin: auto">-->
+        <!--</div>-->
+        <!--<div style="width: 100%; height: 25%; padding-top: 13px;">-->
+            <!--<p style="margin: 0; text-align: center">{{artist.name}}</p>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+
+<style>
+
+    .artistImagePortrait {
+        width: 100%;
+        display: block;
+        margin: auto;
+    }
+
+    .artistImageLandscape {
+        height: 100%;
+        display: block;
+        margin: auto;
+    }
+
+    .artistCircle {
+        width: 200px;
+        height: 200px;
+        border-radius: 100px;
+        margin: 30px 15px 5px 15px;
+        -webkit-box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.3);
+        -moz-box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.3);
+        box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.3);
+        cursor: pointer;
+    }
+
+    .artistCircle:hover {
+        -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+        -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+    }
+
+    .artistNameContainer {
+        width: 100%;
+        height: 25%;
+        padding-top: 13px;
+    }
+
+    .artistNameContainer p {
+        margin: 0;
+        text-align: center;
+        cursor: pointer;
+        outline: none;
+    }
+    
+    .artistNameContainer p:hover {
+        -webkit-text-shadow: 0px 0px 2px rgba(150, 150, 150, 1);
+        -moz-text-shadow: 0px 0px 2px rgba(150, 150, 150, 1);
+        text-shadow: 0px 0px 2px rgba(150, 150, 150, 1);
+    }
+</style>
+
+<!--Artist Main Page-->
+<div ng-show="music.organisedBy === 'artists' && !artistToDisplay" style="padding: 20px;">
+    <div style="float: left;" ng-repeat="artist in artistCardInfo track by $index">
+        <div class="artistCircle" style="overflow: hidden">
+            <img ng-src="{{artist.img.url}}" ng-click="displayArtist(artist.name)"
+                 ng-class="artist.img.width < artist.img.height ? 'artistImagePortrait' : 'artistImageLandscape'">
+        </div>
+        <div class="artistNameContainer">
+            <p ng-click="displayArtist(artist.name)">{{artist.name}}</p>
+        </div>
+    </div>
+</div>
+
+
+<!--Single Artist Page-->
+<div ng-show="artistToDisplay">
+    <img ng-if="artistToDisplay.name !== ''" ng-src="assets/artists/{{artistToDisplay.img}}.jpg" class="artistPageMainImage">
+    <div class="artistPageTitleContainer">
+        <h2 style="text-align: center; line-height: 60px; margin: 0;">{{artistToDisplay.name}}</h2>
+    </div>
+    <div class="artistPageAlbumContainer" ng-repeat="album in artistToDisplay.albums track by $index">
+        <div style="width: 220px; height: 300px; float: left;">
+            <img ng-src="assets/albums/{{album.img}}.jpg" class="artistPageAlbumImage">
+            <h2 class="artistPageAlbumTitle">{{album.name}}</h2>
+            <h4 class="artistPageAlbumText">{{album.songs.length}} songs</h4>
+        </div>
+        <div class="artistPageSongContainer" ng-repeat="song in album.songs">
+            <p style="line-height: 50px; margin: 0 0 0 20px; float: left; width: 50%;">{{song.title}}</p>
+            <p style="line-height: 50px; margin: 0; float: right; width: 20%;">{{song.length}}</p>
+        </div>
+    </div>
+</div>
