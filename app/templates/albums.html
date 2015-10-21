@@ -17,7 +17,7 @@
 
 <!--Albums Main Page-->
 <div ng-show="music.organisedBy === 'albums' && !albumToDisplay">
-    <div class="musicItemBox albumBox" ng-repeat="album in albumCardInfo track by $index" style="overflow: hidden">
+    <div class="musicItemBox albumBox" ng-repeat="album in music.albums track by $index" style="overflow: hidden">
         <img ng-src="{{album.img.url}}" style="height: 100%; width: 100%; position: absolute;">
         <div class="albumImageContainer">
             <img style="width: 100%; height: 200px;" ng-click="displayAlbum(album.name)" ng-src="{{album.img.url}}">
@@ -28,7 +28,7 @@
                 <p class="albumText" style="font-size: 15px;">{{album.name}}</p>
             </div>
             <div>
-                <p class="albumText" style="font-size: 13px;">{{album.id}}</p>
+                <p class="albumText" style="font-size: 13px;">{{album.artist.name}}</p>
             </div>
         </div>
     </div>

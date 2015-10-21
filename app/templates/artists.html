@@ -28,7 +28,7 @@
         width: 200px;
         height: 200px;
         border-radius: 100px;
-        margin: 30px 15px 5px 15px;
+        margin: 0 15px 5px 15px;
         -webkit-box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.3);
         -moz-box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.3);
         box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.3);
@@ -63,7 +63,7 @@
 
 <!--Artist Main Page-->
 <div ng-show="music.organisedBy === 'artists' && !artistToDisplay" style="padding: 20px;">
-    <div style="float: left;" ng-repeat="artist in artistCardInfo track by $index">
+    <div style="float: left; margin-top: 20px; margin-bottom: 20px;" ng-repeat="artist in music.artists track by $index">
         <div class="artistCircle" style="overflow: hidden">
             <img ng-src="{{artist.img.url}}" ng-click="displayArtist(artist.name)"
                  ng-class="artist.img.width < artist.img.height ? 'artistImagePortrait' : 'artistImageLandscape'">

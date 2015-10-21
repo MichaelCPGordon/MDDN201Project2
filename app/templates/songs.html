@@ -1,9 +1,21 @@
+
+<style>
+    .songListItemFieldContainer p {
+        line-height: 50px;
+        margin: 0 0 0 10px;
+        width: calc(100% - 25px);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+</style>
+
 <!--Songs MainPage-->
 <div ng-show="music.organisedBy === 'songs'">
     <div class="songList">
         <div class="songListItemHeading">
             <div class="songListItemFieldContainer" style="width: 70px;"></div>
-            <div class="songListItemFieldContainer" ng-click="orderSongsBy('title', music.allSongs);"
+            <div class="songListItemFieldContainer" ng-click="orderSongsBy('title', music.song);"
                  ng-class="(music.allSongsOrderedBy === 'title') ? 'usedToOrderAllSongs' : ''" style="width: calc(40% - 70px); color: #ACACAC;">
                 <p style="margin-left: 10px;"><b>Name</b></p>
             </div>
@@ -19,21 +31,21 @@
                 <p style="margin-left: 10px;"><b>Album</b></p>
             </div>
         </div>
-        <div class="songListItem" ng-repeat="song in music.allSongs track by $index">
+        <div class="songListItem" ng-repeat="song in music.songs track by $index">
             <div class="songListItemFieldContainer" style="width: 70px;">
-                <img ng-src="assets/albums/{{song.img}}.jpg" class="songListItemImg">
+                <img ng-src="{{song.album.imgSmall.url}}" class="songListItemImg">
             </div>
             <div class="songListItemFieldContainer" style="width: calc(40% - 70px);">
-                <p style="margin-left: 10px;">{{song.title}}</p>
+                <p>{{song.name}}</p>
             </div>
             <div class="songListItemFieldContainer" style="width: 10%;">
-                <p style="margin-left: 10px;">{{song.length}}</p>
+                <p>{{song.durationString}}</p>
             </div>
             <div class="songListItemFieldContainer" style="width: 25%;">
-                <p style="margin-left: 10px;">{{song.artist}}</p>
+                <p>{{song.album.artist.name}}</p>
             </div>
             <div class="songListItemFieldContainer" style="width: 25%;">
-                <p style="margin-left: 10px;">{{song.album}}</p>
+                <p>{{song.album.name}}</p>
             </div>
         </div>
     </div>

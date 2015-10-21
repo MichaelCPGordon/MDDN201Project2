@@ -6,7 +6,7 @@ angular.module('controllers.music', [])
             "#EF5350", "#5C6BC0", "#26A69A", "#9CCC65", "#FFA726", "#66BB6A", "#7E57C2"
         ];
 
-        $scope.generateRandomGenreBoxColor = function(){
+        $scope.generateRandomGenreBoxColors = function(){
             var randCol = "";
             var prevCol = "";
             for (var i = 0; i < $scope.music.genres.length; i++){
@@ -190,6 +190,15 @@ angular.module('controllers.music', [])
             }
         };
 
+        $scope.$on("MusicDataLoaded", function(){
+            $scope.music.artists = MusicService.getAllArtists();
+            $scope.music.albums = MusicService.getAllAlbums();
+            $scope.music.genres = MusicService.getAllGenres();
+            $scope.music.songs = MusicService.getAllTracks();
+            //console.log($scope.music.songs);
+            $scope.generateRandomGenreBoxColors();
+        });
+
 
         //Spotify.search("Bonobo", "artist").then(function(data){
         //    console.log(data);
@@ -329,7 +338,7 @@ angular.module('controllers.music', [])
             };
         }
 
-        $scope.generateRandomGenreBoxColor();
+        $scope.generateRandomGenreBoxColors();
         $scope.orderSongsBy("artist", $scope.music.allSongs);
         $scope.getCurrentSongLengthSeconds();
         $scope.calculateCurrentTrackVal();
