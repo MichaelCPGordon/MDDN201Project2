@@ -1,22 +1,5 @@
-<!--&lt;!&ndash;Albums Main Page&ndash;&gt;-->
-<!--<div ng-show="music.organisedBy === 'albums' && !albumToDisplay">-->
-    <!--<div class="musicItemBox albumBox" ng-repeat="album in music.allAlbums track by $index" style="overflow: hidden">-->
-        <!--<img ng-src="assets/albums/{{album.img}}.jpg" style="height: 100%; width: 100%; position: absolute;">-->
-        <!--<div class="albumImageContainer">-->
-            <!--<img style="width: 100%; height: 200px;" ng-click="displayAlbum(album.name)" ng-src="assets/albums/{{album.img}}.jpg">-->
-        <!--</div>-->
-        <!--<img class="frostedAlbumImage" ng-src="assets/albums/{{album.img}}.jpg">-->
-        <!--<div class="albumTextContainer">-->
-            <!--<p class="albumText" style="font-size: 15px;">{{album.name}}</p>-->
-            <!--<p class="albumText" style="font-size: 13px;">{{album.artist}}</p>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
-
-
-
 <!--Albums Main Page-->
-<div ng-show="music.organisedBy === 'albums' && !albumToDisplay">
+<div ng-show="music.organisedBy === 'albums' && !albumToDisplay && !showSearchResults">
     <div class="musicItemBox albumBox" ng-repeat="album in music.albums track by $index" style="overflow: hidden">
         <img ng-src="{{album.img.url}}" style="height: 100%; width: 100%; position: absolute;">
         <div class="albumImageContainer">
@@ -35,13 +18,13 @@
 </div>
 
 <!--Single Album Page-->
-<div class="artistPageAlbumContainer" style="min-height: 340px;" ng-show="albumToDisplay">
+<div class="artistPageAlbumContainer" style="min-height: 340px;" ng-show="albumToDisplay && !showSearchResults">
     <div style="width: 220px; height: 300px; float: left;">
-        <img ng-src="{{albumToDisplay.img.url}}" class="artistPageAlbumImage">
+        <img ng-src="{{albumToDisplay.img.url}}" class="artistPageAlbumImage" ng-click="addTracksToQueue(albumToDisplay.tracks)">
         <h2 class="artistPageAlbumTitle">{{albumToDisplay.name}}</h2>
         <h3 class="artistPageAlbumTitle">{{albumToDisplay.artist.name}}</h3>
     </div>
-    <div class="artistPageSongContainer" ng-repeat="track in albumToDisplay.tracks">
+    <div class="artistPageSongContainer" ng-repeat="track in albumToDisplay.tracks" ng-click="playTrack(track)">
         <p style="margin: 0 0 0 20px; float: left; width: calc(85% - 40px);">{{track.name}}</p>
         <p style="margin: 0; float: right; width: 15%;">{{track.durationString}}</p>
     </div>

@@ -1,5 +1,5 @@
 <!--Genres Main Page-->
-<div ng-show="music.organisedBy === 'genres' && !genreToDisplay">
+<div ng-show="music.organisedBy === 'genres' && !genreToDisplay && !showSearchResults">
     <div class="musicItemBox genreBox" ng-repeat="genre in music.genres track by $index"
          ng-style="genre.color" ng-click="displayGenre(genre)">
         <h2 class="genreText">{{genre.name}}</h2>
@@ -11,16 +11,16 @@
     <h2 style="text-align: center; line-height: 60px; margin: 0;">{{genreToDisplay.name}}</h2>
 </div>
 <h3 style="width: 100%; text-align: center; margin-top: 50px;"
-    ng-show="genreToDisplay.artists.length === 0 && genreToDisplay">You have no music from this genre</h3>
+    ng-show="genreToDisplay.artists.length === 0 && genreToDisplay && !showSearchResults">You have no music from this genre</h3>
 <div ng-show="genreToDisplay" ng-repeat="album in albumsFromGenre">
 
     <div class="artistPageAlbumContainer" style="min-height: 340px;">
         <div style="width: 220px; height: 300px; float: left;">
-            <img ng-src="{{album.img.url}}" class="artistPageAlbumImage">
+            <img ng-src="{{album.img.url}}" class="artistPageAlbumImage" ng-click="addTracksToQueue(album.tracks)">
             <h2 class="artistPageAlbumTitle">{{album.name}}</h2>
             <h3 class="artistPageAlbumTitle">{{album.artist.name}}</h3>
         </div>
-        <div class="artistPageSongContainer" ng-repeat="track in album.tracks">
+        <div class="artistPageSongContainer" ng-repeat="track in album.tracks" ng-click="playTrack(track)">
             <p style="margin: 0 0 0 20px; float: left; width: calc(85% - 40px);">{{track.name}}</p>
             <p style="margin: 0; float: right; width: 15%;">{{track.durationString}}</p>
         </div>

@@ -21,12 +21,12 @@
               <img src="assets/gigastormLogo.png" style="margin-left: 20px; margin-top: 29.5px;">
           </div>
           <div class="sideMenuItemContainer" style="height: 180px;">
-              <img id="nowPlayingCircle" src="assets/blank.gif" ng-src="{{music.queue[0].album.img.url}}">
+              <img id="nowPlayingCircle" src="assets/blank.gif" ng-src="{{music.nowPlaying.album.img.url || 'assets/blank.gif'}}">
 
               </img>
               <div id="userNameContainer">
-                  <h4 style="margin-bottom: 5px">{{music.queue[0].name}}</h4>
-                  <h5 style="margin-top: 5px;">{{music.queue[0].album.artist.name}}</h5>
+                  <h4>{{music.nowPlaying.name}}</h4>
+                  <h5>{{music.nowPlaying.album.artist.name}}</h5>
               </div>
           </div>
 
@@ -35,15 +35,18 @@
               <div style="height: 100%; position: relative;">
                   <div style="height: 60px; position: relative;">
                       <h5 class="md-headline musicQueueHeading">Queue</h5>
+                      <img ng-src="assets/icons/cross.png" ng-click="clearQueue()" id="clearQueueButton">
                   </div>
                   <md-content class="musicQueueContent">
                       <ul style="padding:0; margin: 0; height: 100%;">
-                          <li ng-repeat="song in music.queue track by $index" class="musicQueueListItem">
-                              <div class="musicQueueIconContainer">
-                                  <img ng-src="{{song.album.imgSmall.url}}" class="musicQueueItemIcon">
+                          <li ng-repeat="track in music.queue track by $index" ng-click="playTrack(track)"
+                              ng-class="track === music.nowPlaying ? 'nowPlayingTrack' : ''" class="musicQueueListItem">
+                              <div class="musicQueueIconContainer" style="position: relative;">
+                                  <img ng-src="{{track.album.imgSmall.url}}" class="musicQueueItemIcon">
+                                  <img ng-src="assets/icons/{{playPauseIcon}}.png" class="nowPlayingTrackQueueIcon" ng-show="track === music.nowPlaying">
                               </div>
                               <div class="musicQueueTextContainer">
-                                  <p>{{song.name}}</p>
+                                  <p>{{track.name}}</p>
                               </div>
                           </li>
                       </ul>
@@ -69,9 +72,10 @@
 
               <div style="height: 70px; width: 30%; float: right; position: relative;">
                   <div id="musicHeaderSearchBox">
-                      <form ng-submit="search()">
+                      <form ng-submit="searchForTracks()">
                           <md-input-container md-no-float style="padding: 0;">
-                              <input id="musicHeaderSearchInput" ng-model="music.search" type="text" aria-label="a" placeholder="Search">
+                              <input id="musicHeaderSearchInput" ng-model="music.searchString"
+                                     type="text" aria-label="a" placeholder="Search">
                           </md-input-container>
                       </form>
                   </div>
@@ -105,12 +109,6 @@
 
               <div id="musicItemsContainer">
 
-                  <md-button class="md-fab" id="standardFabButton" ng-show="artistToDisplay || albumToDisplay ||
-                            genreToDisplay || music.organisedBy === 'songs' || playlistToDisplay">
-                      <md-tooltip md-direction="left">Add To Queue</md-tooltip>
-                      <md-icon md-svg-src="assets/icons/plus.svg"></md-icon>
-                  </md-button>
-
                   <div ng-include="'templates/artists.html'"></div>
 
                   <div ng-include="'templates/albums.html'"></div>
@@ -120,6 +118,8 @@
                   <div ng-include="'templates/songs.html'"></div>
 
                   <div ng-include="'templates/playlists.html'"></div>
+
+                  <div ng-include="'templates/searchResults.html'"></div>
 
               </div>
 

@@ -1,3 +1,8 @@
+
+div { outline: none; }
+img { outline: none; }
+li { outline: none; }
+
 #musicHeaderContainer {
     width: calc(100% - 250px);
     height: 70px;
@@ -172,13 +177,14 @@
 
 .genreBox {
     height: 120px;
-    position: relative;
+    display: table;
 }
 
 .genreText {
     color: #fafafa;
     text-align: center;
-    margin-top: 45.5px;
+    display: table-cell;
+    vertical-align: middle;
 }
 
 .songList {
@@ -231,6 +237,28 @@
 
 .playlistBox {
     height: 255px;
+    position: relative;
+}
+
+.addPlaylistToQueueButton {
+    position: absolute;
+    z-index: 10;
+    height: 100px;
+    width: 100px;
+    margin: 50px;
+    border-radius: 50px;
+    opacity: 0;
+}
+
+.addPlaylistToQueueIcon {
+    height: 50px;
+    width: 50px;
+    margin: 25px;
+}
+
+.addPlaylistToQueueButton:hover {
+    background-color: rgba(75,75,75,0.7);
+    opacity: 1;
 }
 
 .playlistImageContainer {
@@ -260,9 +288,11 @@
 }
 
 .artistPageMainImage {
-    width: 70%;
-    height: 100%;
-    margin-left: 15%;
+    /*max-width: 80%;*/
+    max-height: 500px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
     margin-top: 20px;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -312,6 +342,11 @@
     -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
     -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+    cursor: pointer;
+}
+
+.artistPageAlbumImage:hover {
+    opacity: 0.8;
 }
 
 .artistPageAlbumTitle {
@@ -326,6 +361,7 @@
     margin-left: 230px;
     height: 50px;
     cursor: pointer;
+    outline: none;
 }
 
 .artistPageSongContainer:hover {
@@ -335,4 +371,18 @@
     border-radius: 3px;
 }
 
+.nowPlayingTrack {
+    background-color: #E5E5E5;
+}
 
+.nowPlayingTrack:hover {
+    background-color: #E5E5E5;
+}
+
+.nowPlayingTrackQueueIcon {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    left: 0;
+    margin: 13px 0 0 13px;
+}
